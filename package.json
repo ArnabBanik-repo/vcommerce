@@ -4,7 +4,7 @@
   "description": "An inter-college ecommerce platform for the trade of second hand goods",
   "main": "index.js",
   "scripts": {
-    "test": "node run index.js"
+    "dev": "npx nodemon index.js"
   },
   "keywords": [
     "ecommerce",
@@ -15,6 +15,15 @@
     "mysql",
     "machine-learning"
   ],
-  "author": "Arnab Banik, Ankan Ray",
-  "license": "ISC"
+  "author": "Arnab Banik",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.6.3",
+    "mysql2": "^3.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
 }

@@ -1,0 +1,20 @@
+{
+  "name": "vcommerce",
+  "version": "1.0.0",
+  "description": "An inter-college ecommerce platform for the trade of second hand goods",
+  "main": "index.js",
+  "scripts": {
+    "test": "node run index.js"
+  },
+  "keywords": [
+    "ecommerce",
+    "mern",
+    "nodejs",
+    "expressjs",
+    "mongodb",
+    "mysql",
+    "machine-learning"
+  ],
+  "author": "Arnab Banik, Ankan Ray",
+  "license": "ISC"
+}

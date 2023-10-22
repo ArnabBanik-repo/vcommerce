@@ -109,6 +109,19 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+exports.restrictTo =
+  (...roles) =>
+  (req, res, next) => {
+    if (!roles.includes(req.user.role))
+      return next(
+        new AppError(
+          'You do not have necessary permission to perform that action',
+          403,
+        ),
+      );
+    next();
+  };
+
 exports.deleteUser = catchAsync(async (req, res, next) => {
   const id = req.params.id;
   const user = await listUser(id);

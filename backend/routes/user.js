@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {getUsers, getUser, register, deleteUser, updateUser, updatePassword, login, protect, getMe, deleteMe} = require('../controllers/user')
+const {getUsers, getUser, register, deleteUser, updateUser, updatePassword, login, protect, getMe, deleteMe, restrictTo} = require('../controllers/user')
 
 router.route('/register').post(register);
 router.route('/login').post(login);
@@ -16,6 +16,7 @@ router.route('/deleteMe').delete(deleteMe, deleteUser);
 router.route('/:id').get(getUser);
 
 // Restricted
+router.use(restrictTo('admin'));
 router.route('/').get(getUsers);
 router.route('/:id').delete(deleteUser);
 

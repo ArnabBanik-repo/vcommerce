@@ -64,15 +64,16 @@ const MainComponent = () => {
   ];
 
   return (
-    <div>
-      <CardHead headings={headings} onClick={setActiveTab} />
+    <div className="flex justify-center">
       <div>
+        <CardHead headings={headings} onClick={setActiveTab} />
         {cardsData[activeTab] && (
-          <Card cardeach ={cardsData[activeTab]} />
+          <Card cardeach={cardsData[activeTab]} />
         )}
       </div>
     </div>
   );
 };
+
 
 export default MainComponent;

@@ -4,7 +4,7 @@ import './Header.css';
 
 const Header = () => {
   return (
-    <section className="h-wrapper">
+    <section className="h-wrapper" style={{ height: '13vh' }}>
       <div className="h-container flexCenter paddings innerWidth">
         <Link to="/">
           <img src="./VcommerceLogo.png" alt="Logo" width={130} />

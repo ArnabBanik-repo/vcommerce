@@ -1,8 +1,13 @@
 import React from 'react'
+import Header from '../components/Header/Header'
+import ContactComponent from '../components/ContactComponent'
 
 const Contact = () => {
   return (
-    <div>Contact</div>
+    <>
+    <Header></Header>
+    <ContactComponent></ContactComponent>
+    </>
   )
 }
 

@@ -5,6 +5,7 @@ import Userinfo from "./pages/Userinfo";
 import Contact from "./pages/Contact";
 import Favourites from "./pages/Favourites";
 import Products from "./pages/Products";
+import SingleProduct from "./pages/SingleProduct";
 function App() {
   return (
     <BrowserRouter>
@@ -20,6 +21,7 @@ function App() {
           <Route path="favourites" element={<Favourites />} />
           <Route path="products" element={<Products />} />
           <Route path="userinfo" element={<Userinfo />} />
+          <Route path ="singleproduct/:productid" element={<SingleProduct />}/>
         </Route>
       </Routes>
     </BrowserRouter>

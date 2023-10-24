@@ -6,6 +6,7 @@ const UserInfo = () => {
     lastName: 'Doe',
     phoneNumber: '123-456-7890',
     address: '123 Main St, Cityville',
+    email: 'fuckyou123@gmail,com',
   };
 
   return (
@@ -28,9 +29,13 @@ const UserInfo = () => {
           <p className="text-sm">{userData.phoneNumber}</p>
         </div>
 
-        <div>
+        <div className="mb-4">
           <label className="block text-sm font-semibold mb-1">Address:</label>
           <p className="text-sm">{userData.address}</p>
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-semibold mb-1">Email:</label>
+          <p className="text-sm">{userData.email}</p>
         </div>
       </div>
     </div>

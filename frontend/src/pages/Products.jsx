@@ -5,7 +5,6 @@ import AllProducts from '../components/AllProducts'
 const Products = () => {
   return (
     <>
-    <Header></Header>
     <AllProducts></AllProducts>
     </>
   )

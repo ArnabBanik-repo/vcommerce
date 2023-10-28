@@ -8,7 +8,6 @@ import Footer from '../components/Footer';
 const Home = () => {
   return (
     <>
-    <Header></Header>
     <Hero></Hero>
     <Slogan></Slogan>
     <Cards></Cards>

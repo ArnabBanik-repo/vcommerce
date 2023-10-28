@@ -9,6 +9,7 @@ import SingleProduct from "./pages/SingleProduct";
 function App() {
   return (
     <BrowserRouter>
+    <Header></Header>
       <Routes>
         <Route path="/">
           <Route

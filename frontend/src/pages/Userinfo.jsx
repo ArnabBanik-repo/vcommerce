@@ -6,7 +6,6 @@ import Listed from '../components/Listed'
 const Userinfo = () => {
   return (
     <>
-    <Header></Header>
     <User></User>
     <Listed></Listed>
 

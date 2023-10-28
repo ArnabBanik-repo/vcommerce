@@ -5,7 +5,6 @@ import ContactComponent from '../components/ContactComponent'
 const Contact = () => {
   return (
     <>
-    <Header></Header>
     <ContactComponent></ContactComponent>
     </>
   )

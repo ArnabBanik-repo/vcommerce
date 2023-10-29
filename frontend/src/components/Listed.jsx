@@ -1,37 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Listedcard from './Listedcard';
+import axios from 'axios';
 
 
-const sampleListings = [
-  {
-    id: 1,
-    title: 'Product 1',
-    description: 'Description for Product 1',
-    image: './three.jpg',
-  },
-  {
-    id: 2,
-    title: 'Product 2',
-    description: 'Description for Product 2',
-    image: './two.jpg',
-  },
-  {
-    id: 3,
-    title: 'Product 3',
-    description: 'Description for Product 3',
-    image: './one.jpg',
-  },
-];
+const Listed = () => { 
+  const[productss,setProduct] = useState(null);
 
-const Listed = () => (
+  useEffect(()=>{
+    axios
+      .get("http://127.0.0.1:5000/api/v1/products")
+      .then((res) => {
+        console.log(res.data.data.products);
+        setProduct(res.data.data.products)
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+  },[]);
+  
+  return(
   <div className="container mx-auto mt-8">
     <h2 className="text-2xl font-bold mb-4 text-center">YOUR LISTINGS</h2>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-      {sampleListings.map((product) => (
-        <Listedcard key={product.id} product={product} />
+      { productss && productss.map((product) => (
+        <Listedcard product={product} />
       ))}
     </div>
   </div>
 );
+      };
 
 export default Listed;

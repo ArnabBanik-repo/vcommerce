@@ -51,7 +51,8 @@ exports.createUser = async (
   address = address.toLowerCase();
   roll = roll.toLowerCase();
 
-  await pool.query("INSERT INTO user VALUES(?, ?, ?, ?, ?, ?, ?, null, 'user')", [
+
+  await pool.query("INSERT INTO user VALUES(?, ?, ?, ?, ?, ?, ?, 'user',null )", [
     first_name,
     last_name,
     roll,
@@ -65,7 +66,7 @@ exports.createUser = async (
 
 exports.removeUser = async (id) => {
   const res = await pool.query(`DELETE FROM user WHERE roll=?`, [id]);
-  return res;
+  return res[0].affectedRows;
 };
 
 exports.modifyUser = async (id, phone, address) => {
@@ -79,4 +80,19 @@ exports.modifyPassword = async (id, password) => {
   await pool.query("UPDATE user SET password = ?, password_changed_at = CURRENT_TIMESTAMP() WHERE roll = ?", [hash_pass, id]);
   const user = await this.listUser(id);
   return user;
+}
+
+exports.makeFavourite = async (user_id, product_id) => {
+  const res = await pool.query("INSERT INTO favourites VALUES(?, ?)", [user_id, product_id]);
+  return res[0].affectedRows;
+}
+
+exports.deleteFavourite = async (user_id, product_id) => {
+  const res = await pool.query("DELETE FROM favourites WHERE user_id = ? AND product_id = ?", [user_id, product_id]);
+  return res[0].affectedRows;
+}
+
+exports.listFavourites = async (user_id) => {
+  const [rows] = await pool.query("SELECT * FROM favourites WHERE user_id = ?", [user_id]);
+  return rows;
 }

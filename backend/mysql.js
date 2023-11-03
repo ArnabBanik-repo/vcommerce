@@ -51,7 +51,7 @@ exports.createUser = async (
   address = address.toLowerCase();
   roll = roll.toLowerCase();
 
-  await pool.query("INSERT INTO user VALUES(?, ?, ?, ?, ?, ?, ?, null, 'user')", [
+  await pool.query("INSERT INTO user VALUES(?, ?, ?, ?, ?, ?, ?, 'user', null)", [
     first_name,
     last_name,
     roll,

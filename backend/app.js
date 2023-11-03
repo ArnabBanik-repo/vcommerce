@@ -12,7 +12,7 @@ const globalErrorHandler = require('./controllers/error');
 const AppError = require('./utils/AppError');
 
 const corsOptions = {
-  origin: ['http://127.0.0.1:3000', process.env.FRONTEND_URI],
+  origin: ['http://127.0.0.1:5173', process.env.FRONTEND_URI],
   credentials: true,
   optionSuccessStatus: 200,
 };

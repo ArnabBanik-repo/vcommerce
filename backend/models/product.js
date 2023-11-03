@@ -20,7 +20,7 @@ const schema = new mongoose.Schema(
     },
     category: {
       type: String,
-      enum: ['book', 'cycle', 'household', 'misc'],
+      enum: ['book', 'cycle', 'household', 'misc','garments','accessory'],
       required: true,
     },
     condition: {

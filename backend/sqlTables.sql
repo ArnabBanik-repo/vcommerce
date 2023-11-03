@@ -1,11 +1,12 @@
 CREATE TABLE user (
-    roll CHAR(9) PRIMARY KEY,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
+    roll CHAR(9) PRIMARY KEY,
     email VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
+    phone VARCHAR(10) NOT NULL UNIQUE,
     address VARCHAR(255),
-    roll CHAR(5) DEFAULT 'user',
+    password VARCHAR(255) NOT NULL,
+    role CHAR(5) DEFAULT 'user',
     password_changed_at TIMESTAMP,
     CHECK (CHAR_LENGTH(password) >= 8),
     CHECK (email LIKE '%@vitstudent.ac.in') 

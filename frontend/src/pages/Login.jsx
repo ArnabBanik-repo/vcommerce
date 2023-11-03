@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [id, setid] = useState("");
   const [password, setPassword] = useState("");
+  const [loginStatus, setLoginStatus] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,20 +18,32 @@ const Login = () => {
         {
           id,
           password,
-        }
+        },{withCredentials:true}
       );
 
-      // Handle the response as needed, e.g., store user token in state or localStorage
-      console.log("Login successful:", response.data);
+      // Set the login status from the response
+      setLoginStatus(response.data.status);
+
+      // Check the status from the response
+      if (response.data.status === "success") {
+        // You can optionally perform other actions on successful login
+        console.log("Login successful!");
+        
+        navigate('/'); 
+      } else {
+        // Handle login failure
+        console.error("Login failed:", response.data.message);
+        // You can optionally display an error message to the user
+      }
     } catch (error) {
-      // Handle login error
-      console.error("Login failed:", error);
+      // Handle other errors
+      console.error("Error during login:", error);
     }
   };
 
   return (
     <div
-      className="flex items-center justify-center  bg-black text-white"
+      className="flex items-center justify-center bg-black text-white"
       style={{ minHeight: "calc(100vh - 13vh)" }}
     >
       <form
@@ -37,7 +53,7 @@ const Login = () => {
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         <div className="mb-4">
           <label htmlFor="id" className="block text-sm font-medium">
-            id Number
+            ID Number
           </label>
           <input
             type="text"
@@ -65,9 +81,11 @@ const Login = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none"
+          className={`w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none ${
+            loginStatus === "success" ? "bg-green-500" : ""
+          }`}
         >
-          Login
+          {loginStatus === "success" ? "Login Successful" : "Login"}
         </button>
       </form>
     </div>

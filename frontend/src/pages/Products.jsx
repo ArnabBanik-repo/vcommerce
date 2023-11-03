@@ -7,7 +7,7 @@ const Products = () => {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:5000/api/v1/products")
+      .get("http://127.0.0.1:5000/api/v1/products",{withCredentials:true})
       .then((res) => {
         console.log(res.data.data.products);
         setProducts(res.data.data.products)

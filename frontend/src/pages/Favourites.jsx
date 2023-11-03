@@ -7,7 +7,7 @@ const Favourites = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/v1/users/favourites") 
+      .get("http://localhost:5000/api/v1/users/favourites",{withCredentials:true}) 
       .then((res) => {
         console.log(res.data.data.products);
         setProducts(res.data.data.products)

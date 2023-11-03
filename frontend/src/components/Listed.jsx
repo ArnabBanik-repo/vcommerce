@@ -10,7 +10,6 @@ const Listed = () => {
     axios
       .get("http://127.0.0.1:5000/api/v1/products",{withCredentials:true})
       .then((res) => {
-        console.log(res.data.data.products);
         setProduct(res.data.data.products)
       })
       .catch((err) => {
@@ -24,7 +23,7 @@ const Listed = () => {
     <h2 className="text-2xl font-bold mb-4 text-center">YOUR LISTINGS</h2>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
       { productss && productss.map((product) => (
-        <Listedcard product={product} />
+        <Listedcard product={product} key={product._id}/>
       ))}
     </div>
   </div>

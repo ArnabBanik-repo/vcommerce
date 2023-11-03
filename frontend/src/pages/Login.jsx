@@ -21,34 +21,28 @@ const Login = () => {
         },{withCredentials:true}
       );
 
-      // Set the login status from the response
       setLoginStatus(response.data.status);
 
-      // Check the status from the response
       if (response.data.status === "success") {
-        // You can optionally perform other actions on successful login
         console.log("Login successful!");
         
         navigate('/'); 
       } else {
-        // Handle login failure
         console.error("Login failed:", response.data.message);
-        // You can optionally display an error message to the user
       }
     } catch (error) {
-      // Handle other errors
       console.error("Error during login:", error);
     }
   };
 
   return (
     <div
-      className="flex items-center justify-center bg-black text-white"
+      className="flex items-center justify-center"
       style={{ minHeight: "calc(100vh - 13vh)" }}
     >
       <form
         onSubmit={handleSubmit}
-        className="bg-gray-900 opacity-70 p-8 rounded-md shadow-md"
+        className="opacity-70 p-8 rounded-md shadow-md"
       >
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         <div className="mb-4">
@@ -61,7 +55,7 @@ const Login = () => {
             name="id"
             value={id}
             onChange={(e) => setid(e.target.value)}
-            className="w-full py-2 px-3 bg-gray-800 text-white rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full py-2 px-3 bg-gray-200 rounded-md focus:outline-none focus:border-blue-500"
             required
           />
         </div>
@@ -75,7 +69,7 @@ const Login = () => {
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full py-2 px-3 bg-gray-800 text-white rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full py-2 px-3 bg-gray-200 rounded-md focus:outline-none focus:border-blue-500"
             required
           />
         </div>

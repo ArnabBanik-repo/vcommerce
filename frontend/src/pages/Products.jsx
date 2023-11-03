@@ -9,7 +9,6 @@ const Products = () => {
     axios
       .get("http://127.0.0.1:5000/api/v1/products",{withCredentials:true})
       .then((res) => {
-        console.log(res.data.data.products);
         setProducts(res.data.data.products)
       })
       .catch((err) => {
@@ -21,7 +20,7 @@ const Products = () => {
       <h2 className="text-2xl font-bold mb-4 text-center">PRODUCTS</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {products && products.map((product) => (
-          <Listedcard key={product.id} product={product} />
+          <Listedcard key={product._id} product={product} />
         ))}
       </div>
     </div>

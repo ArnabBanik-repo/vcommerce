@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const UserInfo = () => {
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -12,17 +12,15 @@ const UserInfo = () => {
         if (response.data.status === 'success') {
           setUserData(response.data.data);
         } else {
-          // Handle error if needed
-          console.error('Error fetching user data:', response.data.message);
+          console.error('Error fetching user data:', response.data);
         }
       } catch (error) {
-        // Handle other errors
         console.error('Error fetching user data:', error);
       }
     };
 
     fetchData();
-  }, []); // Empty dependency array ensures the effect runs only once on component mount
+  }, []); 
 
   return (
     <div className="flex items-center justify-center">

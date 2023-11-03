@@ -1,0 +1,101 @@
+[
+  {
+    "first_name": "Arnab",
+    "last_name": "Banik",
+    "phone": "9786789987",
+    "address": "l block room 03",
+    "roll": "20bds0038",
+    "email": "arnab.banik2020@vitstudent.ac.in",
+    "password": "password1234"
+  },
+  {
+    "first_name": "John",
+      "last_name": "Smith",
+      "phone": "1234567890",
+      "address": "Block A, Room 101",
+      "roll": "20bds0012",
+      "email": "john.smith@vitstudent.ac.in",
+      "password": "password1234"
+  },
+  {
+    "first_name": "Alice",
+      "last_name": "Johnson",
+      "phone": "5531234567",
+      "address": "Block B, Room 202",
+      "roll": "20bds0056",
+      "email": "alice.johnson@vitstudent.ac.in",
+      "password": "password1234"
+  },
+  {
+    "first_name": "David",
+      "last_name": "Miller",
+      "phone": "9876543210",
+      "address": "Block C, Room 303",
+      "roll": "20bds0071",
+      "email": "david.miller@vitstudent.ac.in",
+      "password": "password1234"
+  },
+  {
+    "first_name": "Emma",
+      "last_name": "Davis",
+      "phone": "1132233333",
+      "address": "Block D, Room 404",
+      "roll": "20bds0025",
+      "email": "emma.davis@vitstudent.ac.in",
+      "password": "password1234"
+  },
+  {
+    "first_name": "Sophia",
+      "last_name": "Wilson",
+      "phone": "3334435555",
+      "address": "Block E, Room 505",
+      "roll": "20bds0099",
+      "email": "sophia.wilson@vitstudent.ac.in",
+      "password": "password1234"
+  },
+  {
+    "first_name": "James",
+      "last_name": "Anderson",
+      "phone": "7738839999",
+      "address": "Block F, Room 606",
+      "roll": "20bds0110",
+      "email": "james.anderson@vitstudent.ac.in",
+      "password": "password1234"
+  },
+  {
+    "first_name": "Olivia",
+      "last_name": "Moore",
+      "phone": "1234537890",
+      "address": "Block G, Room 707",
+      "roll": "20bds0121",
+      "email": "olivia.moore@vitstudent.ac.in",
+      "password": "password1234"
+  },
+  {
+    "first_name": "Ethan",
+      "last_name": "Clark",
+      "phone": "5535535555",
+      "address": "Block H, Room 808",
+      "roll": "20bds0132",
+      "email": "ethan.clark@vitstudent.ac.in",
+      "password": "password1234"
+  },
+  {
+    "first_name": "Ava",
+      "last_name": "Robinson",
+      "phone": "8839931111",
+      "address": "Block I, Room 909",
+      "roll": "20bds0143",
+      "email": "ava.robinson@vitstudent.ac.in",
+      "password": "password1234"
+  },
+  {
+    "first_name": "Liam",
+      "last_name": "Garcia",
+      "phone": "7731234567",
+      "address": "Block J, Room 1010",
+      "roll": "20bds0154",
+      "email": "liam.garcia@vitstudent.ac.in",
+      "password": "password1234"
+  }
+]

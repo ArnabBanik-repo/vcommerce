@@ -7,9 +7,14 @@ import Favourites from "./pages/Favourites";
 import Products from "./pages/Products";
 import SingleProduct from "./pages/SingleProduct";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
+
+import { AuthProvider } from "./context/AuthContext";
+
 function App() {
   return (
     <BrowserRouter>
+    <AuthProvider>
     <Header></Header>
       <Routes>
         <Route path="/">
@@ -25,8 +30,11 @@ function App() {
           <Route path="userinfo" element={<Userinfo />} />
           <Route path="login" element={<Login />} />
           <Route path ="singleproduct/:productid" element={<SingleProduct />}/>
+          
         </Route>
+        <Route path="register" element={<Register/>}></Route>
       </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

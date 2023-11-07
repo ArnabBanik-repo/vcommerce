@@ -1,18 +1,30 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [id, setid] = useState("");
   const [password, setPassword] = useState("");
-  const [loginStatus, setLoginStatus] = useState("");
 
+  // Use the useNavigate hook at the top level of the component
   const navigate = useNavigate();
+
+  // Use the useAuth hook to get login, logout functions, and user data
+  const { user, login: authLogin, logout: authLogout } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
+    if (user) {
+      // If a user is already set, call logout
+      authLogout();
+    }
+
+    else
+    {
+      try {
       const response = await axios.post(
         "http://localhost:5000/api/v1/users/login",
         {
@@ -21,19 +33,19 @@ const Login = () => {
         },{withCredentials:true}
       );
 
-      setLoginStatus(response.data.status);
-
       if (response.data.status === "success") {
         console.log("Login successful!");
-        
-        navigate('/'); 
+        authLogin(response.data.user); // Use the login function from useAuth
+        navigate('/');
       } else {
         console.error("Login failed:", response.data.message);
       }
     } catch (error) {
       console.error("Error during login:", error);
-    }
+    }}
   };
+
+
 
   return (
     <div
@@ -73,15 +85,27 @@ const Login = () => {
             required
           />
         </div>
+        {/* Display either Login or Logout button based on user login status */}
         <button
-          type="submit"
+          type="button"
+          onClick={handleSubmit}
           className={`w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none ${
-            loginStatus === "success" ? "bg-green-500" : ""
+            user ? "bg-red-500" : ""
           }`}
         >
-          {loginStatus === "success" ? "Login Successful" : "Login"}
+          {user ? "Logout" : "Login"}
         </button>
+        {/* Display user info if logged in */}
+        {user && (
+          <div className="mt-4 text-center">
+            <p className="text-gray-500">Logged in as: {user.first_name}</p>
+          </div>
+        )}
+        <Link to="/register" style={{ color: 'green' }}>
+          Register New User
+        </Link>
       </form>
+      
     </div>
   );
 };

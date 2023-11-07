@@ -1,17 +1,34 @@
-
-import { createContext, useContext, useState } from 'react';
+import axios from 'axios';
+import { createContext, useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
+
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    async function getMe(){
+      axios.get(`http://localhost:5000/api/v1/users/me`, {withCredentials: true})
+      .then(res => setUser(res.data.data))
+      .catch(err => {})
+    }
+    getMe();
+  }, []);
 
   const login = (userData) => {
     setUser(userData);
   };
 
   const logout = () => {
-    setUser(null);
+    axios.get(`http://localhost:5000/api/v1/users/logout`, {withCredentials: true})
+    .then(_ => {
+      setUser(null);
+      navigate('/')
+    })
+    .catch(err => console.error(err))
   };
 
   return (

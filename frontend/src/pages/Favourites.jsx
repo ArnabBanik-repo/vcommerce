@@ -17,7 +17,6 @@ const Favourites = () => {
         setProducts(res.data.data.products);
       })
       .catch((err) => {
-        console.error(err);
       });
   }, []);
   return (

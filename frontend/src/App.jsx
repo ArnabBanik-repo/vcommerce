@@ -1,6 +1,7 @@
 import Header from "./components/Header/Header";
 import Home from "./pages/Home";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 import Userinfo from "./pages/Userinfo";
 import Contact from "./pages/Contact";
 import Favourites from "./pages/Favourites";
@@ -9,9 +10,9 @@ import SingleProduct from "./pages/SingleProduct";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
-import { AuthProvider } from "./context/AuthContext";
 
 function App() {
+
   return (
     <BrowserRouter>
     <AuthProvider>
@@ -34,7 +35,7 @@ function App() {
         </Route>
         <Route path="register" element={<Register/>}></Route>
       </Routes>
-      </AuthProvider>
+    </AuthProvider>
     </BrowserRouter>
   );
 }

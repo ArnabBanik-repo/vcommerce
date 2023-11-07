@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {getUsers, getUser, register, deleteUser, updatePassword, login, protect, getMe, deleteMe, restrictTo, updateMe} = require('../controllers/user');
+const {getUsers, getUser, register, deleteUser, updatePassword, login, logout, protect, getMe, deleteMe, restrictTo, updateMe} = require('../controllers/user');
 const { createFavourite, removeFavourite, getFavourites } = require('../controllers/favourite');
 
 router.route('/register').post(register);
@@ -11,6 +11,7 @@ router.route('/login').post(login);
 router.use(protect)
 
 router.route('/me').get(getMe, getUser);
+router.route('/logout').get(logout);
 router.route('/favourites').get(getFavourites);
 router.route('/updateMe').patch(updateMe);
 router.route('/updatePassword').patch(updatePassword);

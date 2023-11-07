@@ -8,17 +8,14 @@ const Login = () => {
   const [id, setid] = useState("");
   const [password, setPassword] = useState("");
 
-  // Use the useNavigate hook at the top level of the component
   const navigate = useNavigate();
 
-  // Use the useAuth hook to get login, logout functions, and user data
   const { user, login: authLogin, logout: authLogout } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (user) {
-      // If a user is already set, call logout
       authLogout();
     }
 
@@ -41,7 +38,7 @@ const Login = () => {
         console.error("Login failed:", response.data.message);
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      alert(error.response.data.message);
     }}
   };
 

@@ -67,15 +67,15 @@ const SingleProduct = () => {
       className="mb-4 rounded-md h-auto w-64 mx-auto"
         />
         <h2 className="text-2xl font-bold mb-2">{productData.title}</h2>
-        <p className="text-gray-600 mb-4">{productData.desc}</p>
-        <p className="text-gray-600 mb-4">Category: {productData.category}</p>
-        <p className="text-gray-600 mb-4">Condition: {productData.condition}</p>
-        <p className="text-gray-600 mb-4">Brand: {productData.brand}</p>
-        <p className="text-gray-600 mb-4">Price: ${productData.price}</p>
-        <p className="text-gray-600 mb-4">Seller: {productData.seller.first_name} {productData.seller.last_name}</p>
-        <p className="text-gray-600 mb-4">Listed on: {productData.createdAt.substring(0, productData.createdAt.indexOf('T'))}</p>
+        <p className="text-gray-600 mb-4 capitalize">{productData.desc}</p>
+        <p className="text-gray-600 mb-4 capitalize">Category: {productData.category}</p>
+        <p className="text-gray-600 mb-4 capitalize">Condition: {productData.condition}</p>
+        <p className="text-gray-600 mb-4 capitalize">Brand: {productData.brand}</p>
+        <p className="text-gray-600 mb-4 capitalize">Price: ${productData.price}</p>
+        <p className="text-gray-600 mb-4 capitalize">Seller: {productData.seller.first_name} {productData.seller.last_name}</p>
+        <p className="text-gray-600 mb-4 capitalize">Listed on: {productData.createdAt.substring(0, productData.createdAt.indexOf('T'))}</p>
         {
-          user && <button className={`favorite-button rounded-full p-2 ${isFavorited ? 'bg-red-500 text-white' : 'bg-gray-300 text-black'}`}
+          user && <button className={`favorite-button rounded-full py-3 px-6 ${isFavorited ? 'bg-red-500 text-white' : 'bg-gray-300 text-black'}`}
         onClick={toggleFavorite}
         >
         {isFavorited ? 'Unfavorite' : 'Favorite'}

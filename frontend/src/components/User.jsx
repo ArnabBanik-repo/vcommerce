@@ -30,13 +30,8 @@ const UserInfo = () => {
         {userData && (
           <>
             <div className="mb-4">
-              <label className="block text-sm font-semibold mb-1">First Name:</label>
-              <p className="text-sm">{userData.first_name}</p>
-            </div>
-
-            <div className="mb-4">
-              <label className="block text-sm font-semibold mb-1">Last Name:</label>
-              <p className="text-sm">{userData.last_name}</p>
+              <label className="block text-sm font-semibold mb-1">Name:</label>
+              <p className="text-sm capitalize">{userData.first_name} {userData.last_name}</p>
             </div>
 
             <div className="mb-4">
@@ -46,7 +41,7 @@ const UserInfo = () => {
 
             <div className="mb-4">
               <label className="block text-sm font-semibold mb-1">Address:</label>
-              <p className="text-sm">{userData.address}</p>
+              <p className="text-sm capitalize">{userData.address}</p>
             </div>
             <div className="mb-4">
               <label className="block text-sm font-semibold mb-1">Email:</label>

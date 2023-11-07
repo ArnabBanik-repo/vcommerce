@@ -15,13 +15,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (user) {
-      authLogout();
-    }
-
-    else
-    {
-      try {
+    try {
       const response = await axios.post(
         "http://localhost:5000/api/v1/users/login",
         {
@@ -31,18 +25,15 @@ const Login = () => {
       );
 
       if (response.data.status === "success") {
-        console.log("Login successful!");
-        authLogin(response.data.user); // Use the login function from useAuth
+        authLogin(response.data.user);
         navigate('/');
       } else {
         console.error("Login failed:", response.data.message);
       }
     } catch (error) {
       alert(error.response.data.message);
-    }}
+    }
   };
-
-
 
   return (
     <div

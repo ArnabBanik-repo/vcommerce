@@ -1,22 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
+
+function containsObject(obj, list) {
+  let i;
+  for(i in list)
+    if(list[i]._id === obj._id) return true;
+  return false;
+}
 
 const Listedcard = ({ product }) => {
-  const [isFavorited, setIsFavorited] = useState(false); // check if this exists in the user favourite
+  const {userFavourites, setUserFavourites} = useAuth()
+
+  const [isFavorited, setIsFavorited] = useState(false); 
+
+  useEffect(() => {
+    if(userFavourites && containsObject(product, userFavourites))
+      setIsFavorited(true)
+    
+  }, [userFavourites])
 
   const toggleFavorite = () => {
     if(!isFavorited){
       axios.get(`http://localhost:5000/api/v1/users/favourite/${product._id}`, {withCredentials: true})
         .then(res => {
-          console.log(res.data.data);
-          setIsFavorited(isFavorited);
+          setUserFavourites([...userFavourites, product])
+          setIsFavorited(!isFavorited);
         })
         .catch(err => {
           alert(err.response.data.message);
         });
     } else{
-      console.log("hi");
+      axios.get(`http://localhost:5000/api/v1/users/unfavourite/${product._id}`, {withCredentials: true})
+      .then(res => {
+        setUserFavourites(() => userFavourites.filter(e => e._id !== product._id))          
+        setIsFavorited(!isFavorited);
+      })
+      .catch(err => {
+        alert(err.response.data.message);
+      });
     }
   };
 

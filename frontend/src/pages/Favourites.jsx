@@ -4,20 +4,26 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 
 const Favourites = () => {
-  const { user } = useAuth();
+  const { user, userFavourites } = useAuth();
 
   const [products, setProducts] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/v1/users/favourites", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setProducts(res.data.data.products);
-      })
-      .catch((err) => {
-      });
+    async function getFavourites(){
+      axios
+        .get("http://localhost:5000/api/v1/users/favourites", {
+          withCredentials: true,
+        })
+        .then((res) => {
+          setProducts(res.data.data.products);
+        })
+        .catch((err) => {
+        });
+    }
+    if(!userFavourites)
+      getFavourites()
+    else
+      setProducts(userFavourites)
   }, []);
   return (
     <>

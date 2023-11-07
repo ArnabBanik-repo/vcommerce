@@ -8,15 +8,27 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [userFavourites, setUserFavourites] = useState(null);
 
   useEffect(() => {
-    async function getMe(){
+    async function getUser(){
       axios.get(`http://localhost:5000/api/v1/users/me`, {withCredentials: true})
       .then(res => setUser(res.data.data))
       .catch(err => {})
     }
-    getMe();
+    if(!user) getUser();
   }, []);
+
+  useEffect(() => {
+    async function getUserFav(){
+      axios.get(`http://localhost:5000/api/v1/users/favourites`, {withCredentials: true})
+      .then(res => {
+        setUserFavourites(res.data.data.products)
+      })
+      .catch(err => {})
+    }
+    getUserFav();
+  }, [user])
 
   const login = (userData) => {
     setUser(userData);
@@ -25,6 +37,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     axios.get(`http://localhost:5000/api/v1/users/logout`, {withCredentials: true})
     .then(_ => {
+      alert("Logged out");
       setUser(null);
       navigate('/')
     })
@@ -32,7 +45,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, userFavourites, setUserFavourites }}>
       {children}
     </AuthContext.Provider>
   );

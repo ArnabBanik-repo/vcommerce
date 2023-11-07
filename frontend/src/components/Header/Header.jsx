@@ -1,8 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
+import { useAuth } from '../../context/AuthContext';
 
 const Header = () => {
+  const { user, logout: authLogout } = useAuth();
+
+  const handleLogout = () => {
+    authLogout();
+  }
+
   return (
     <section className="h-wrapper" style={{ height: '13vh' }}>
       <div className="h-container flexCenter paddings innerWidth">
@@ -11,10 +18,11 @@ const Header = () => {
         </Link>
 
         <div className="h-menu flexCenter">
-          <Link to="/userinfo">User Info</Link>
+          {user && <Link to="/userinfo">User Info</Link>}
           <Link to="/products">Products</Link>
-          <Link to="/favourites">Favourites</Link>
-          <Link to="/login">Login</Link>
+          {user && <Link to="/favourites">Favourites</Link>}
+          {!user && <Link to="/login">Login</Link>}
+          {user && <button onClick={handleLogout}>Logout</button>}
         </div>
       </div>
     </section>

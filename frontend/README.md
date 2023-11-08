@@ -9,4 +9,4 @@
 * Search funcitonality
 * Filter functionality
 * Footer
-* Page colors and fonts
+* Page colors and fonts, and font sizes

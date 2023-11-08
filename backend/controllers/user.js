@@ -54,12 +54,12 @@ exports.getUser = catchAsync(async (req, res, next) => {
   })
 })
 
-exports.getMe = catchAsync(async (req, res, next) => {
+exports.getMe = catchAsync(async (req, _, next) => {
   req.params.id = req.user.roll;
   next();
 });
 
-exports.register = catchAsync(async (req, res, next) => {
+exports.register = catchAsync(async (req, res, _) => {
   const { first_name, last_name, roll, email, phone, address, password } = req.body;
   const user = await createUser(first_name, last_name, roll, email, phone, address, password);
   res.status(200).json({

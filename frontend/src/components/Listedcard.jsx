@@ -43,17 +43,22 @@ const Listedcard = ({ product }) => {
   };
 
   return (
-    <div className={`bg-white p-4 rounded-md shadow-md mb-4 cursor-pointer ${isFavorited ? 'border border-red-500' : ''}`}>
+    <div className={`w-80 p-4 rounded-md shadow-md mb-4 transition-all cursor-pointer border border-transparent ${isFavorited ? 'border-red-500' : 'hover:border-[#9CFF88]'}`}>
       <Link to={{ pathname: `/singleproduct/${product._id}` }}>
-      <img src={"http://localhost:5000/img/products/"+product.photo} alt={product.title} className="mb-2 rounded-md h-auto w-64" />
+      <img src={"http://localhost:5000/img/products/"+product.photo} alt={product.title} className="mb-2 rounded-md" />
+      </Link>
+      <div className='flex items-center justify-between'>
+      <Link to={{ pathname: `/singleproduct/${product._id}` }}>
       <h3 className="text-lg font-semibold">{product.title}</h3>
+      <p className="text-md">Price: Rs.{product.price}</p>
       </Link>
       <div onClick={(e) => e.stopPropagation()}>
         <button
-        className={`favorite-button rounded-full p-2 ${isFavorited ? 'bg-red-500 text-white' : 'bg-gray-300 text-black'}`}
+        className={`favorite-button rounded-md py-2 transition-all px-5 ${isFavorited ? 'bg-red-500 hover:bg-red-600 text-white' : 'bg-gray-300 hover:bg-[#9CFF88] text-black'}`}
         onClick={toggleFavorite}>
           {isFavorited ? 'Unfavorite' : 'Favorite'}
         </button>
+      </div>
       </div>
     </div>
   );

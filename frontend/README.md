@@ -10,3 +10,4 @@
 * Filter functionality
 * Footer
 * Page colors and fonts, and font sizes
+* Separate contexts for User, Favourites and Products

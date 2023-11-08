@@ -60,28 +60,34 @@ const SingleProduct = () => {
   } 
 
   return productData ? (
-    <div className="container mx-auto mt-8 text-center">
+    <div className="container mx-auto pt-20 grid grid-cols-2 place-items-center" >
+    <div>
         <img
       src={`http://localhost:5000/img/products/${productData.photo}`}
       alt={productData.title}
-      className="mb-4 rounded-md h-auto w-64 mx-auto"
+      className="mb-4 rounded-md w-4/5 mx-auto"
         />
+    </div>
+    <div>
         <h2 className="text-2xl font-bold mb-2">{productData.title}</h2>
-        <p className="text-gray-600 mb-4 capitalize">{productData.desc}</p>
+        <p className="text-gray-600 mb-4 capitalize text-justify">{productData.desc}</p>
         <p className="text-gray-600 mb-4 capitalize">Category: {productData.category}</p>
         <p className="text-gray-600 mb-4 capitalize">Condition: {productData.condition}</p>
         <p className="text-gray-600 mb-4 capitalize">Brand: {productData.brand}</p>
         <p className="text-gray-600 mb-4 capitalize">Price: Rs.{productData.price}</p>
         <p className="text-gray-600 mb-4 capitalize">Seller: {productData.seller.first_name} {productData.seller.last_name}</p>
+        <p className="text-gray-600 mb-4 capitalize">Seller Address: {productData.seller.address}</p>
+        <p className="text-gray-600 mb-4 capitalize">Seller Phone number: {productData.seller.phone}</p>
         <p className="text-gray-600 mb-4 capitalize">Listed on: {productData.createdAt.substring(0, productData.createdAt.indexOf('T'))}</p>
         {
-          user && <button className={`favorite-button rounded-full py-3 px-6 ${isFavorited ? 'bg-red-500 text-white' : 'bg-gray-300 text-black'}`}
+          user && <button className={`mt-4 favorite-button rounded-lg w-40 py-3 ${isFavorited ? 'bg-red-500 text-white' : 'bg-gray-300 text-black'}`}
         onClick={toggleFavorite}
         >
         {isFavorited ? 'Unfavorite' : 'Favorite'}
         </button>
         } 
-      </div>
+    </div>
+  </div>
   ) : (
     <div> Loading... </div>
   )

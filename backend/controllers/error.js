@@ -4,12 +4,16 @@ const handleCastError = (err) =>
   new AppError(`Invalid ${err.path}: ${err.value}`, 400);
 
 const handleDuplicateKeyError = (err) => {
-  const val = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
+  const val = err.code === 11000 ? err.errmsg.match(/(["'])(\\?.)*?\1/)[0] : err.message;
   return new AppError(
     `Duplicate field value ${val}. Please use another value`,
     400,
   );
 };
+
+const handleEmailConstraintError = () => 
+  new AppError(`You must enter a vit email id`, 400);
+
 
 const handleValidationError = (err) => {
   const errors = Object.values(err.errors).map((e) => e.message);
@@ -19,7 +23,6 @@ const handleValidationError = (err) => {
 
 const handleJWTError = () =>
   new AppError(`Invalid token. Please login again`, 401);
-
 const handleExpiredError = () =>
   new AppError(`Token expired. Please login again`, 401);
 
@@ -55,6 +58,7 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === 'DEVELOPMENT') sendErrorDev(err, res);
   else if (process.env.NODE_ENV === 'PRODUCTION') {
     let error;
+    if(err.errno === 3819) error = handleEmailConstraintError();
     if (err.name === 'CastError') error = handleCastError(err);
     if (err.code === 11000 || err.errno === 1062) error = handleDuplicateKeyError(err);
     if (err.name === 'ValidationError') error = handleValidationError(err);

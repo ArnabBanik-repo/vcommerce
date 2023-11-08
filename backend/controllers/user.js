@@ -3,6 +3,7 @@ const { promisify } = require('util');
 const catchAsync = require('../utils/catchAsync');
 const { listUsers, listUser, createUser, removeUser, modifyUser, listCompleteUser, modifyPassword, correctPassword, changedPasswordAfter } = require("../mysql");
 const AppError = require('../utils/AppError');
+const Product = require('../models/product');
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_KEY, {
@@ -45,6 +46,8 @@ exports.getUser = catchAsync(async (req, res, next) => {
   const user = await listUser(id);
   if (!user) return next(new AppError("No user with that ID", 404));
 
+  const products = await Product.find({seller: req.params.id});
+  user.products = products;
   res.status(200).json({
     status: 'success',
     data: user,
@@ -53,7 +56,6 @@ exports.getUser = catchAsync(async (req, res, next) => {
 
 exports.getMe = catchAsync(async (req, res, next) => {
   req.params.id = req.user.roll;
-  console.log(req.user.roll, req.params.id);
   next();
 });
 
@@ -75,17 +77,20 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!user || !(await correctPassword(password, user.password)))
     return next(new AppError('Incorrect ID or password entered', 401));
 
+  const products = await Product.find({seller: id});
+  user.products = products;
+
   sendToken(user, 200, res);
 });
 
-exports.logout = (req, res) => {
+exports.logout = catchAsync(async (req, res) => {
   res.cookie('jwt', '', {
     expires: new Date(Date.now() + 10 * 1000),
   });
   res.status(200).json({
     status: 'success',
   });
-};
+});
 
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
@@ -124,28 +129,30 @@ exports.restrictTo =
 
 exports.deleteUser = catchAsync(async (req, res, next) => {
   const id = req.params.id;
-  const user = await listUser(id);
-  if(!user) return next(new AppError("No user with that ID", 404));
+  const t = await removeUser(id);
+  if(t === 0)
+    return res.status(400).json({
+    status: 'fail',
+    msg: 'some error occurred, try that again'
+  });
 
-  await removeUser(id);
-
+  await Product.deleteMany({seller: req.params.id});
   res.status(200).json({
     status: 'success',
-  })
-})
+  }); 
+});
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
   req.params.id = req.user.roll;
   next();
 });
-exports.updateUser = catchAsync(async (req, res, next) => {
+
+exports.updateMe = catchAsync(async (req, res, next) => {
   const id = req.user.roll;
-  const user = await listUser(id);
-  if(!user) return next(new AppError("No user with that ID", 404));
 
   let {phone, address} = req.body;
-  if(!phone) phone = user.phone;
-  if(!address) address = user.address;
+  if(!phone) phone = req.user.phone;
+  if(!address) address = req.user.address;
 
   const ans = await modifyUser(id, phone, address);
   res.status(200).json({
@@ -157,7 +164,6 @@ exports.updateUser = catchAsync(async (req, res, next) => {
 exports.updatePassword = catchAsync(async (req, res, next) => {
   const id = req.user.roll;
   const user = await listCompleteUser(id);
-  if(!user) return next(new AppError("No user with that ID exists", 404));
 
   if (!await correctPassword(req.body.password, user.password))
     return next(new AppError('Incorrect password entered', 401));

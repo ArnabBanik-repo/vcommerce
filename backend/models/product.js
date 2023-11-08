@@ -7,6 +7,10 @@ const schema = new mongoose.Schema(
       unique: true,
       minLength: 3
     },
+    photo:{
+      type:String,
+      required: [true, 'Product image must be uploaded'],
+    },
     desc: {
       type: String,
       required: true,
@@ -16,7 +20,7 @@ const schema = new mongoose.Schema(
     },
     category: {
       type: String,
-      enum: ['book', 'cycle', 'household', 'misc'],
+      enum: ['book', 'cycle', 'household', 'misc','garments','accessory'],
       required: true,
     },
     condition: {
@@ -32,8 +36,16 @@ const schema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-  },
-  { timestamps: true }
+    seller: {
+      type: String,
+      required: [true, 'A product must have a seller'],
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  }
 );
+
 const Product = mongoose.model("Product", schema);
 module.exports = Product;

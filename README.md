@@ -82,7 +82,7 @@ To run the project, you will need:
 5. **Enjoy Buying and Selling!**: VCommerce is your platform for all your buying and selling needs within the VIT University community.
 
 ## Work in Progress
-1. ![Frontend Issues](./frontend/README.md)
-2. ![Backend Issues](./backend/README.md)
+1. [Frontend Issues](./frontend/README.md)
+2. [Backend Issues](./backend/README.md)
 
 Feel free to contribute to the project

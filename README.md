@@ -9,7 +9,7 @@
     <img alt="Static Badge" src="https://img.shields.io/badge/license-ISC-blue">
 </p>
 
-<img alt="Banner" src="./frontend/public/VcommerceLogo.png" width="400" style="display:block; margin-x:auto;"/>
+<img alt="Banner" src="./frontend/public/VcommerceLogo.png" width="400" style="display:block; margin-left:auto; margin-right: auto;"/>
 
 Welcome to VCommerce, the ultimate platform for VIT University students to buy and sell their second-hand products. This project aims to create a connection ground between senior students looking to sell their items and juniors seeking cost-effective solutions for their needs, whether it's textbooks, bicycles, electronics, or electrical devices.
 

@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 const UserInfo = () => {
+  const {user} = useAuth()
   const [userData, setUserData] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        if(user){
+          setUserData(user);
+          return;
+        }
         const response = await axios.get('http://localhost:5000/api/v1/users/me',{withCredentials:true});
 
         if (response.data.status === 'success') {
@@ -25,7 +31,6 @@ const UserInfo = () => {
   return (
     <div className="flex items-center justify-center">
       <div className="paddings">
-        <h2 className="text-2xl font-bold mb-4">User Information</h2>
 
         {userData && (
           <>

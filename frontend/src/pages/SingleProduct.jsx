@@ -71,7 +71,7 @@ const SingleProduct = () => {
         <p className="text-gray-600 mb-4 capitalize">Category: {productData.category}</p>
         <p className="text-gray-600 mb-4 capitalize">Condition: {productData.condition}</p>
         <p className="text-gray-600 mb-4 capitalize">Brand: {productData.brand}</p>
-        <p className="text-gray-600 mb-4 capitalize">Price: ${productData.price}</p>
+        <p className="text-gray-600 mb-4 capitalize">Price: Rs.{productData.price}</p>
         <p className="text-gray-600 mb-4 capitalize">Seller: {productData.seller.first_name} {productData.seller.last_name}</p>
         <p className="text-gray-600 mb-4 capitalize">Listed on: {productData.createdAt.substring(0, productData.createdAt.indexOf('T'))}</p>
         {

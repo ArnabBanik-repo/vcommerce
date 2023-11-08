@@ -29,15 +29,13 @@ const Favourites = () => {
     <>
       {user ? (
         <div className="container mx-auto mt-8">
+        {products && products.length > 0 ? 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {products ? 
-              products.map((product) => (
-                <Listedcard key={product._id} product={product} />
-              ))
-              :
-              <h1>You currently have no items marked as favourite</h1>
-            }
+            {products.map(product => <Listedcard key={product._id} product={product} />)}
           </div>
+          :
+          <div className="grid place-items-center font-bold text-xl">You currently have no items marked as favourite</div>
+        }
         </div>
       ) : (
         <p className="text-gray-500">Please Log in</p>

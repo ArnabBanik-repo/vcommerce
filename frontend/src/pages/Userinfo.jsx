@@ -9,12 +9,12 @@ const UserInfo = () => {
   return (
     <>
       {user ? (
-        <>
+        <div className='px-40 flex justify-center'>
           <User />
           <Listed />
-        </>
+        </div>
       ) : (
-        <p className="text-gray-500">Please Log in</p>
+        <div className="text-xl font-bold">Please Log in</div>
       )}
     </>
   );

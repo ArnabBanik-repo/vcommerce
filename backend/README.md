@@ -1,9 +1,17 @@
-# Project: VCommerce
+# VCommerce Backend
 [Full Documentation](https://documenter.getpostman.com/view/20963177/2s9YRDyAMj)
 
 This backend server to the VCommerce application provides two APIs to the frontend to interact with in a RESTful manner. There is the `user` API and the `product` API.
 
 This server connects to a MYSQL db for users and a Mongo db for products.
+
+## Table of Contents
+
+- [API Documentation](#features)
+- [Things to Work On](#things-to-do)
+
+# API Documentation
+---
 # 📁 Collection: User 
 
 

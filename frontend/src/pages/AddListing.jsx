@@ -11,19 +11,15 @@ const AddListing = () => {
   const [photo, setPhoto] = useState('');
 
   const handlePhotoChange = (e) => {
-   
-    const file = e.target.files[0]; // Get the first file from the array
+    const file = e.target.files[0]; 
     setPhoto(file);
-    
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-
-      const formData = new FormData();
+    const formData = new FormData();
     formData.append('photo', photo);
 
     const otherData = {
@@ -39,7 +35,7 @@ const AddListing = () => {
       formData.append(key, otherData[key]);
     });
 
-    const response = await axios.post(
+    await axios.post(
       'http://localhost:5000/api/v1/products',
       formData,
       {
@@ -50,12 +46,9 @@ const AddListing = () => {
       }
     );
 
-
-      console.log('Product added successfully:', response.data);
-
-      // Optionally, you can redirect the user or perform other actions
+    alert("Product Listed");
     } catch (error) {
-      console.error('Error adding product:', error);
+      alert(error.response.data.message);
     }
   };
 
@@ -80,47 +73,46 @@ const AddListing = () => {
         </div>
 
         <div className="mb-4">
-  <label htmlFor="category" className="block text-sm font-medium">
-    Category
-  </label>
-  <select
-    id="category"
-    name="category"
-    value={category}
-    onChange={(e) => setCategory(e.target.value)}
-    className="w-full py-2 px-3 bg-white rounded-md focus:outline-none focus:border-blue-500"
-    required
-  >
-    <option value="">Select a category</option>
-    <option value="book">Book</option>
-    <option value="cycle">Cycle</option>
-    <option value="household">Household</option>
-    <option value="misc">Misc</option>
-    <option value="garments">Garments</option>
-    <option value="accessory">Accessory</option>
-  </select>
-</div>
+          <label htmlFor="category" className="block text-sm font-medium">
+            Category
+          </label>
+          <select
+          id="category"
+          name="category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="w-full py-2 px-3 bg-white rounded-md focus:outline-none focus:border-blue-500"
+          required
+          >
+            <option value="">Select a category</option>
+            <option value="book">Book</option>
+            <option value="cycle">Cycle</option>
+            <option value="household">Household</option>
+            <option value="misc">Misc</option>
+            <option value="garments">Garments</option>
+            <option value="accessory">Accessory</option>
+          </select>
+        </div>
 
-<div className="mb-4">
-  <label htmlFor="condition" className="block text-sm font-medium">
-    Condition
-  </label>
-  <select
-    id="condition"
-    name="condition"
-    value={condition}
-    onChange={(e) => setCondition(e.target.value)}
-    className="w-full py-2 px-3 bg-white rounded-md focus:outline-none focus:border-blue-500"
-    required
-  >
-    <option value="">Select a condition</option>
-    <option value="new">New</option>
-    <option value="almost new">Almost New</option>
-    <option value="fairly old">Fairly Old</option>
-    <option value="very old">Very Old</option>
-  </select>
-</div>
-
+        <div className="mb-4">
+          <label htmlFor="condition" className="block text-sm font-medium">
+            Condition
+          </label>
+          <select
+            id="condition"
+            name="condition"
+            value={condition}
+            onChange={(e) => setCondition(e.target.value)}
+            className="w-full py-2 px-3 bg-white rounded-md focus:outline-none focus:border-blue-500"
+            required
+          >
+            <option value="">Select a condition</option>
+            <option value="new">New</option>
+            <option value="almost new">Almost New</option>
+            <option value="fairly old">Fairly Old</option>
+            <option value="very old">Very Old</option>
+          </select>
+        </div>
 
         <div className="mb-4">
           <label htmlFor="brand" className="block text-sm font-medium">
@@ -144,13 +136,13 @@ const AddListing = () => {
           Description
           </label>
           <textarea
-    id="desc"
-    name="desc"
-    value={desc}
-    onChange={(e) => setDesc(e.target.value)}
-    className="w-full py-2 px-3 bg-white rounded-md focus:outline-none focus:border-blue-500"
-    required
-  />
+            id="desc"
+            name="desc"
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
+            className="w-full py-2 px-3 bg-white rounded-md focus:outline-none focus:border-blue-500"
+            required
+          />
         </div>
 
         <div className="mb-4">
@@ -178,9 +170,7 @@ const AddListing = () => {
            required />
           
         </div>
-        
 
-        
         <button
           type="submit"
           className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none"

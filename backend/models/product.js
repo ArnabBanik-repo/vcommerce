@@ -4,8 +4,8 @@ const schema = new mongoose.Schema(
     title: {
       type: String,
       required: true,
-      unique: true,
-      minLength: 3
+      minLength: 3,
+      maxLength: 20,
     },
     photo:{
       type:String,
@@ -14,9 +14,8 @@ const schema = new mongoose.Schema(
     desc: {
       type: String,
       required: true,
-    },
-    img: {
-      type: String,
+      minLength: 5,
+      maxLength: 100
     },
     category: {
       type: String,
@@ -31,10 +30,12 @@ const schema = new mongoose.Schema(
     brand: {
       type: String,
       required: true,
+      maxLength: 20
     },
     price: {
       type: Number,
       required: true,
+      min: [10, 'Price of the item should be atleast Rs 10']
     },
     seller: {
       type: String,

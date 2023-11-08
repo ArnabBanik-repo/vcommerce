@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Header.css';
 import { useAuth } from '../../context/AuthContext';
 
 const Header = () => {
@@ -11,20 +10,19 @@ const Header = () => {
   }
 
   return (
-    <section className="h-wrapper" style={{ height: '13vh' }}>
-      <div className="h-container flexCenter paddings innerWidth">
+    <section className="flex items-center bg-[#9CFF88] justify-center px-56" style={{ height: '10vh' }}>
+      <div className="w-1/2 flex">
         <Link to="/">
           <img src="http://localhost:5173/VcommerceLogo.png" alt="Logo" width={130} />
         </Link>
-
-        <div className="h-menu flexCenter">
+      </div>
+        <div className="gap-10 flex justify-end w-1/2 text-[#2F4858]">
           {user && <Link to="/userinfo">User Info</Link>}
           <Link to="/products">Products</Link>
           {user && <Link to="/favourites">Favourites</Link>}
           {!user && <Link to="/login">Login</Link>}
-          {user && <button onClick={handleLogout}>Logout</button>}
+          {user && <button className="inline-block h-min" onClick={handleLogout}>Logout</button>}
         </div>
-      </div>
     </section>
   );
 };

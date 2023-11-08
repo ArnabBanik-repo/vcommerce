@@ -50,9 +50,12 @@ exports.addProduct = catchAsync(async (req, res, next) => {
 
 exports.updateProduct = catchAsync(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
+  if(!product)
+    return next(new AppError("No such product exists"));
+
   if (product.seller.toString() !== req.user.roll) {
     return next(
-      new AppError("You are not authorized to update that post", 401),
+      new AppError("You are not authorized to update that product", 401),
     );
   }
 

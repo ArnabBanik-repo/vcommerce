@@ -11,7 +11,7 @@ This server connects to a MYSQL db for users and a Mongo db for products.
 - [Things to Work On](#things-to-do)
 
 # API Documentation
----
+
 # 📁 Collection: User 
 
 
@@ -542,5 +542,5 @@ _________________________________________________
 
 ## Things to do
 * Recommendations based on user's prev searches
-* Reset password
+* Reset password functionality using email and reset token
 * Verify vit email

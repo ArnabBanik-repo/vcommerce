@@ -30,10 +30,13 @@ const Favourites = () => {
       {user ? (
         <div className="container mx-auto mt-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {products &&
+            {products ? 
               products.map((product) => (
                 <Listedcard key={product._id} product={product} />
-              ))}
+              ))
+              :
+              <h1>You currently have no items marked as favourite</h1>
+            }
           </div>
         </div>
       ) : (

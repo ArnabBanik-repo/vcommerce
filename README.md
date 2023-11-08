@@ -30,15 +30,7 @@ Welcome to VCommerce, the ultimate platform for VIT University students to buy a
 
 - **Product Listings**: Post detailed product listings with images, descriptions, and prices.
 
-- **Search and Filters**: Efficient search functionality with filters for easy product discovery.
-
-- **Messaging System**: Built-in messaging system to communicate with sellers/buyers securely.
-
-- **Feedback and Ratings**: Leave reviews and ratings for users to build trust in the community.
-
-- **Categories**: Categorize your products for a better browsing experience.
-
-- **Mobile-Responsive**: The website is designed to work seamlessly on various devices.
+- **Marking Favourites**: Mark products as favourites to review them later.
 
 ## Getting Started
 
@@ -89,11 +81,8 @@ To run the project, you will need:
 
 5. **Enjoy Buying and Selling!**: VCommerce is your platform for all your buying and selling needs within the VIT University community.
 
-## Contributing
+## Work in Progress
+1. ![Frontend Issues](./frontend/README.md)
+2. ![Backend Issues](./backend/README.md)
 
-We welcome contributions from the community. If you would like to contribute to the project, please follow our [Contributing Guidelines](CONTRIBUTING.md).
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
+Feel free to contribute to the project

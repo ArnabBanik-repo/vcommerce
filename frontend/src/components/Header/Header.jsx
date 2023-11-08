@@ -19,6 +19,7 @@ const Header = () => {
         <div className="gap-10 flex justify-end w-1/2 text-[#2F4858]">
           {user && <Link to="/userinfo">User Info</Link>}
           <Link to="/products">Products</Link>
+          {user && <Link to="/addlisting">Add Products</Link>}
           {user && <Link to="/favourites">Favourites</Link>}
           {!user && <Link to="/login">Login</Link>}
           {user && <button className="inline-block h-min" onClick={handleLogout}>Logout</button>}

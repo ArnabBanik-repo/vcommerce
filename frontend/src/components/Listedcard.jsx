@@ -50,7 +50,7 @@ const Listedcard = ({ product }) => {
       <div className='flex items-center justify-between'>
       <Link to={{ pathname: `/singleproduct/${product._id}` }}>
       <h3 className="text-lg font-semibold">{product.title}</h3>
-      <p className="text-md">Price: Rs.{product.price}</p>
+      <p className="text-md">₹{product.price}</p>
       </Link>
       <div onClick={(e) => e.stopPropagation()}>
         <button

@@ -9,6 +9,7 @@ import Products from "./pages/Products";
 import SingleProduct from "./pages/SingleProduct";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import AddListing from "./pages/AddListing";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           
         </Route>
         <Route path="register" element={<Register/>}></Route>
+        <Route path="addlisting" element={<AddListing/>}></Route>
       </Routes>
     </AuthProvider>
     </BrowserRouter>

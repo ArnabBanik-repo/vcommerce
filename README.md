@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-    <img alt="Banner" src="./frontend/public/VcommerceLogo.png" width="400"/>
+    <img alt="Banner" src="./frontend/public/VcommerceLogo.png" width="400" height="200"/>
 </p>
 
 Welcome to VCommerce, the ultimate platform for VIT University students to buy and sell their second-hand products. This project aims to create a connection ground between senior students looking to sell their items and juniors seeking cost-effective solutions for their needs, whether it's textbooks, bicycles, electronics, or electrical devices.

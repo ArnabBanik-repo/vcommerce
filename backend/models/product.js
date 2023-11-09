@@ -35,7 +35,8 @@ const schema = new mongoose.Schema(
     price: {
       type: Number,
       required: true,
-      min: [10, 'Price of the item should be atleast Rs 10']
+      min: [10, 'Price of the item should be atleast Rs 10'],
+      max: [100000, 'Maximum listing value is 100000']
     },
     seller: {
       type: String,

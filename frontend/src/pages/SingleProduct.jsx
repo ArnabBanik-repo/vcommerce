@@ -10,13 +10,12 @@ function containsObject(obj, list) {
 }
 
 const SingleProduct = () => {
-  const {user, userFavourites, setUserFavourites} = useAuth()
-
   const [isFavorited, setIsFavorited] = useState(false); 
-
-  const {productid} = useParams();
-
   const [productData, setProductData] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const {user, userFavourites, setUserFavourites} = useAuth()
+  const {productid} = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +33,7 @@ const SingleProduct = () => {
   useEffect(() => {
     if(user && userFavourites && productData && containsObject(productData, userFavourites))
       setIsFavorited(true)
-    
+   
   }, [user, userFavourites, productData])
 
   const toggleFavorite = () => {
@@ -79,14 +78,35 @@ const SingleProduct = () => {
         <p className="text-gray-600 mb-4 capitalize">Seller Address: {productData.seller.address}</p>
         <p className="text-gray-600 mb-4 capitalize">Seller Phone number: {productData.seller.phone}</p>
         <p className="text-gray-600 mb-4 capitalize">Listed on: {productData.createdAt.substring(0, productData.createdAt.indexOf('T'))}</p>
+        
         {
-          user && <button className={`mt-4 favorite-button rounded-lg w-40 py-3 ${isFavorited ? 'bg-red-500 text-white' : 'bg-gray-300 text-black'}`}
-        onClick={toggleFavorite}
-        >
-        {isFavorited ? 'Unfavorite' : 'Favorite'}
-        </button>
+          user && 
+          <div>
+            <button className={`rounded-lg w-40 py-3 ${isFavorited ? 'bg-red-500 text-white' : 'bg-gray-300 text-black'}`}
+            onClick={toggleFavorite}
+            >
+              {isFavorited ? 'Unfavorite' : 'Favorite'}
+            </button>
+          { productData.seller.roll === user.roll &&
+            <button className='ml-3 rounded-lg w-40 py-3 bg-[#9CFF88] hover:bg-green-400 transition-all'>
+              Edit Product
+            </button>
+          }
+          </div>
         } 
     </div>
+
+    <div className='edit-form'>
+      <form>
+        <input className="text-2xl font-bold mb-2" value={productData.title} />
+        <input className="text-gray-600 mb-4 capitalize text-justify" value={productData.desc} />
+        <input className="text-gray-600 mb-4 capitalize" value={productData.category} />
+        <input className="text-gray-600 mb-4 capitalize" value={productData.condition} />
+        <input className="text-gray-600 mb-4 capitalize" value={productData.brand} />
+        <input className="text-gray-600 mb-4 capitalize" value={productData.price} />
+      </form>
+    </div>
+
   </div>
   ) : (
     <div> Loading... </div>

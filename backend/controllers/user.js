@@ -77,9 +77,6 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!user || !(await correctPassword(password, user.password)))
     return next(new AppError('Incorrect ID or password entered', 401));
 
-  const products = await Product.find({seller: id});
-  user.products = products;
-
   sendToken(user, 200, res);
 });
 

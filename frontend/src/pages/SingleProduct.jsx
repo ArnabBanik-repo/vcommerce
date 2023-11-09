@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -16,6 +16,48 @@ const SingleProduct = () => {
 
   const {user, userFavourites, setUserFavourites} = useAuth()
   const {productid} = useParams();
+  
+  const title = useRef();
+  const category = useRef();
+  const condition = useRef();
+  const brand = useRef();
+  const desc = useRef();
+  const price = useRef();
+
+  const handleEdit = () => 
+  {
+    setIsOpen(!isOpen);
+  }
+
+  const sendEdit = async (e) => 
+  {
+    e.preventDefault();
+
+    try {
+      const prod = {
+        title: title.current.value,
+        category: category.current.value,
+        condition: condition.current.value,
+        brand: brand.current.value,
+        desc: brand.current.value,
+        price: price.current.value,
+      };
+      const response = await axios.patch(
+        `http://localhost:5000/api/v1/products/${productData._id}`,
+        prod,
+        {withCredentials: true}
+      );
+      if (response.data.status === "success") {
+        console.log("Edit successful!");
+        window.location.reload();        
+      } else {
+        console.error("Edit failed:", response.data.message);
+      }
+    } catch (error) {
+      console.error("Error during updation:", error);
+    }
+    }
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +109,9 @@ const SingleProduct = () => {
       className="mb-4 rounded-md w-4/5 mx-auto"
         />
     </div>
-    <div>
+    
+    {!isOpen?
+    (<div>
         <h2 className="text-2xl font-bold mb-2">{productData.title}</h2>
         <p className="text-gray-600 mb-4 capitalize text-justify">{productData.desc}</p>
         <p className="text-gray-600 mb-4 capitalize">Category: {productData.category}</p>
@@ -88,24 +132,101 @@ const SingleProduct = () => {
               {isFavorited ? 'Unfavorite' : 'Favorite'}
             </button>
           { productData.seller.roll === user.roll &&
-            <button className='ml-3 rounded-lg w-40 py-3 bg-[#9CFF88] hover:bg-green-400 transition-all'>
+            <button className='ml-3 rounded-lg w-40 py-3 bg-[#9CFF88] hover:bg-green-400 transition-all ' onClick={handleEdit}>
               Edit Product
             </button>
           }
           </div>
         } 
-    </div>
+    </div>) :
 
-    <div className='edit-form'>
-      <form>
-        <input className="text-2xl font-bold mb-2" value={productData.title} />
-        <input className="text-gray-600 mb-4 capitalize text-justify" value={productData.desc} />
-        <input className="text-gray-600 mb-4 capitalize" value={productData.category} />
-        <input className="text-gray-600 mb-4 capitalize" value={productData.condition} />
-        <input className="text-gray-600 mb-4 capitalize" value={productData.brand} />
-        <input className="text-gray-600 mb-4 capitalize" value={productData.price} />
-      </form>
-    </div>
+    (<div className="edit-form w-8/12">
+    <form className="bg-white p-8 rounded-md shadow-md max-w-md mx-auto">
+      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">Edit Listing</h1>
+  
+      <div className="mb-4">
+        <input
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          placeholder="Title"
+          ref={title}
+        />
+      </div>
+  
+      <div className="mb-4">
+        <select
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          placeholder="Category"
+          ref={category}
+        >
+          <option value="" disabled selected>Select Category</option>
+          <option value="book">Book</option>
+          <option value="cycle">Cycle</option>
+          <option value="household">Household</option>
+          <option value="misc">Misc</option>
+          <option value="garments">Garments</option>
+          <option value="accessory">Accessory</option>
+        </select>
+      </div>
+  
+      <div className="mb-4">
+        <select
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          placeholder="Condition"
+          ref={condition}
+        >
+          <option value="" disabled selected>Select Condition</option>
+          <option value="new">New</option>
+          <option value="almost new">Almost New</option>
+          <option value="fairly old">Fairly Old</option>
+          <option value="very old">Very Old</option>
+        </select>
+      </div>
+  
+      <div className="mb-4">
+        <input
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          placeholder="Brand"
+          ref={brand}
+        />
+      </div>
+  
+      <div className="mb-4">
+        <textarea
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          placeholder="Description"
+          ref={desc}
+        />
+      </div>
+  
+      <div className="mb-4">
+        <input
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+          placeholder="Price"
+          ref={price}
+        />
+      </div>
+  
+      <div className="mb-4">
+  <div className="flex justify-between mb-4">
+    <button
+      type="submit"
+      className="w-1/3 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none "
+      onClick={sendEdit}
+    >
+      Edit Listing
+    </button>
+
+    <button
+      className="w-1/3 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none"
+      onClick={handleEdit}
+    >
+      Cancel
+    </button>
+  </div>
+</div>
+    </form>
+  </div>
+  )}
 
   </div>
   ) : (

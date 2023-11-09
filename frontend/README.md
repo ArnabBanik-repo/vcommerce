@@ -11,3 +11,5 @@
 * Footer
 * Page colors and fonts, and font sizes
 * Separate contexts for User, Favourites and Products
+* Hamburger menu for Navbar
+* Mobile responsive

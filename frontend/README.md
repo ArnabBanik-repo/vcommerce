@@ -1,10 +1,10 @@
 # VCommerce Frontend
 ## Things to do:
-* Product listing page
+* Product listing page ✅
 * Single product page user information display
 * Update user profile information
 * Update listed product information
-* Card paddings incorrect
+* Card paddings incorrect ✅
 * Home Page
 * Search funcitonality
 * Filter functionality

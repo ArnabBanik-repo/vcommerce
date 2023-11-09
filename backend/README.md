@@ -4,6 +4,7 @@
 This backend server to the VCommerce application provides two APIs to the frontend to interact with in a RESTful manner. There is the `user` API and the `product` API.
 
 This server connects to a MYSQL db for users and a Mongo db for products.
+
 ## Table of Contents
 
 - [API Documentation](#features)

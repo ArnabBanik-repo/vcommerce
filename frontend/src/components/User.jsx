@@ -43,8 +43,4 @@ const User = ({user}) => {
   );
 };
 
-<<<<<<< HEAD
-export default UserInfo;
-=======
 export default User;
->>>>>>> ankan

@@ -6,7 +6,7 @@
     <img alt="Static Badge" src="https://img.shields.io/badge/mysql-orange">
     <img alt="Static Badge" src="https://img.shields.io/badge/react-blue">
     <img alt="Static Badge" src="https://img.shields.io/badge/contributions-welcome-light">
-    <img alt="Static Badge" src="https://img.shields.io/badge/license-ISC-blue">
+    <img alt="Static Badge" src="https://img.shields.io/badge/license-GPLv3-blue">
 </p>
 
 <p align="center">

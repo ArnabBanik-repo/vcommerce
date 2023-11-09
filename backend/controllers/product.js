@@ -38,7 +38,6 @@ exports.getProduct = catchAsync(async (req, res, next) => {
 
 exports.addProduct = catchAsync(async (req, res, next) => {
   if (!req.body.seller) req.body.seller = req.user.roll;
-  //console.log(req.user.products.map(p => p.title === req.body.title))
   if (req.file) req.body.photo = req.file.filename;
   let product = await Product.create(req.body);
 
@@ -53,7 +52,7 @@ exports.updateProduct = catchAsync(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
   if(!product)
     return next(new AppError("No such product exists"));
-
+  
   if (product.seller.toString() !== req.user.roll) {
     return next(
       new AppError("You are not authorized to update that product", 401),

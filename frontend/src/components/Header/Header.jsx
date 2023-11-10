@@ -23,7 +23,7 @@ const Header = () => {
       </div>
       <div className="flex gap-4">
         {display && (
-          <div className="flex items-center gap-4 text-[#2F4858]">
+          <div className="flex items-center gap-4 text-[#0f2e1b]">
             {user && <Link to="/userinfo">User Info</Link>}
             <Link to="/products">Products</Link>
             {user && <Link to="/addlisting">Add Products</Link>}
@@ -33,7 +33,7 @@ const Header = () => {
           </div>
         )}
         <button onClick={handleDisplay}>
-          <img src="./public/hamburger.png" alt="Hamburger" width={30} />
+          <img src="/hamburger.png" alt="Hamburger" width={30} />
         </button>
       </div>
     </section>

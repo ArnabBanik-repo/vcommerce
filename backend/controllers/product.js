@@ -61,6 +61,7 @@ exports.updateProduct = catchAsync(async (req, res, next) => {
 
   const freshProduct = await Product.findByIdAndUpdate(product._id, req.body, {
     new: true,
+    runValidators: true
   });
   res.status(200).json({
     status: "success",

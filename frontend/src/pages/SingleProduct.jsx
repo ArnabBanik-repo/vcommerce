@@ -39,7 +39,7 @@ const SingleProduct = () => {
         category: category.current.value,
         condition: condition.current.value,
         brand: brand.current.value,
-        desc: brand.current.value,
+        desc: desc.current.value,
         price: price.current.value,
       };
       const response = await axios.patch(
@@ -54,7 +54,7 @@ const SingleProduct = () => {
         console.error("Edit failed:", response.data.message);
       }
     } catch (error) {
-      console.error("Error during updation:", error);
+      alert(error.response.data.message)
     }
     }
 

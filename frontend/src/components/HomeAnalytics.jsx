@@ -20,7 +20,7 @@ const HomeAnalytics = () => {
           </h1>
           <p className="text-black">
             Welcome to Vcommerce, the beating heart of the vibrant VIT
-            community! We've crafted a unique space where VITitans trade and
+            community! We've crafted a unique space where VITians trade and
             connect, shaping a dynamic marketplace that goes beyond the
             ordinary. A digital hub buzzing with energy, where
             students seamlessly buy, sell, and trade everything from class notes
@@ -29,7 +29,7 @@ const HomeAnalytics = () => {
             and their needs. Dive into the pulse of campus commerce, where every
             click tells a story, and every trade is a step towards building a
             stronger, more connected VIT community. Join us in this exciting
-            journey as we redefine the way VITitans engage in commerce—because at
+            journey as we redefine the way VITians engage in commerce—because at
             Vcommerce, it's not just about transactions; it's about fostering
             connections that last a lifetime. Welcome to your personalized
             marketplace, where the spirit of VIT thrives through every deal!

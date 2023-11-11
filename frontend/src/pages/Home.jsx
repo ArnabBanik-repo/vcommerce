@@ -1,17 +1,17 @@
 import React from 'react';
-import Header from '../components/Header/Header';
-import Hero from '../components/Hero/Hero';
-import Slogan from '../components/Slogan/Slogan';
-import Cards from '../components/Cards';
-import Footer from '../components/Footer';
+
+import HomeHero from '../components/HomeHero';
+import HomeAnalytics from '../components/HomeAnalytics';
+
+import HomeFooter from '../components/HomeFooter';
+
 
 const Home = () => {
   return (
     <>
-    <Hero />
-    <Slogan />
-    <Cards />
-    <Footer />
+    <HomeHero/>
+    <HomeAnalytics/>
+    <HomeFooter/>
     </>
   )
 }

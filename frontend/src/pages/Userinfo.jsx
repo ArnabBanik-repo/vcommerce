@@ -11,7 +11,6 @@ const UserInfo = () => {
         const response = await axios.get('http://localhost:5000/api/v1/users/me', { withCredentials: true });
 
         if (response.data.status === 'success') {
-          console.log(response.data.data)
           setUser(response.data.data);
         } else {
           console.error('Error fetching user data:', response.data);

@@ -6,30 +6,29 @@ import { Link } from "react-router-dom";
 
 const HomeHero = () => {
   return (
-    <div
-      className="bg-no-repeat bg-cover"
-      style={{ backgroundImage: "url('./backhero.jpg')" }}
-    >
-      <div className="max-w-[650px]  w-full h-screen ml-10vh text-left flex flex-col justify-center">
+    <div className="bg-[url('./backhero.jpg')] bg-no-repeat bg-cover">
+      <div className="max-w-[650px] mx-16 h-screen flex flex-col justify-center">
         <p className="text-black font-bold p-2 md:text-4xl sm:text-3xl text-xl pl-20">
           Your Unique VIT Market
         </p>
-        
-          <ReactTyped
-            strings={["VCOMMERCE"]}
-            typeSpeed={150}
-            loop
-            className="text-[#00df9a] font-bold p-2 md:text-5xl sm:text-4xl text-2xl pl-20"
-          />
-        
+
+        <ReactTyped
+          strings={["VCOMMERCE"]}
+          typeSpeed={170}
+          backDelay={1000}
+          smartBackspace={true}
+          loop
+          className="text-[#69CC55] font-bold p-2 md:text-5xl sm:text-4xl text-2xl pl-20"
+        />
+
         <div className="md:text-5xl sm:text-4xl text-xl font-bold py-4 pl-5 pt-20">
           From Books to Gadgets
         </div>
-        <p className="md:text-3xl text-2xl font-bold text-gray-700 pt-30 pl-5">
+        <p className="md:text-xl text-2xl text-gray-700 pt-30 pl-5">
           Beyond Classes, Connect through Commerce - VIT, Let's Vcommerce
         </p>
         <Link to="/login">
-          <button className="bg-black w-[200px] rounded-md font-medium my-6 mx-10 py-3 text-[#00df9a] ">
+          <button className="bg-black rounded-md font-medium my-6 mx-10 py-3 px-8 text-[#B6FFA2] font-bold">
             Get Started
           </button>
         </Link>

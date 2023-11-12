@@ -9,6 +9,7 @@ CREATE TABLE user (
     password_changed_at TIMESTAMP,
     role CHAR(5) DEFAULT 'user',
     CHECK (CHAR_LENGTH(password) >= 8),
+    CHECK (CHAR_LENGTH(phone) = 10),
     CHECK (email LIKE '%@vitstudent.ac.in') 
 );
 

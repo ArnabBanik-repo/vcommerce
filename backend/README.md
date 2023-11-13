@@ -542,5 +542,3 @@ _________________________________________________
 
 ## Things to do
 * Recommendations based on user's prev searches
-* Reset password functionality using email and reset token
-* Verify vit email

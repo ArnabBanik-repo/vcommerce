@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-const {getUsers, getUser, register, deleteUser, updatePassword, login, logout, protect, getMe, deleteMe, restrictTo, updateMe, forgotPassword, verifyUser } = require('../controllers/user');
+const {getUsers, getUser, register, deleteUser, updatePassword, login, logout, protect, getMe, deleteMe, restrictTo, updateMe, forgotPassword, verifyUser,resetPassword, validateMail } = require('../controllers/user');
 const { createFavourite, removeFavourite, getFavourites } = require('../controllers/favourite');
-const { validateMail } = require("../controllers/user");
 
 router.route('/verifyUser/:token').get(verifyUser)
 router.route('/register').post(register);
 router.route('/login').post(login);
 router.route('/forgotPassword').post(forgotPassword)
+router.route('/resetPassword/:token').post(resetPassword)
 
 // User Related
 router.use(protect)

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 const { promisify } = require('util');
 const catchAsync = require('../utils/catchAsync');
 const { listUsers, listUser, createUser, removeUser, modifyUser, listCompleteUser, modifyPassword, correctPassword, changedPasswordAfter, setResetToken, findUserWithPasswordToken } = require("../mysql");
@@ -7,6 +7,7 @@ const AppError = require('../utils/AppError');
 const Product = require('../models/product');
 const Email = require("../utils/email");
 const { validateUser } = require("../mysql");
+const { resetDbPassword } = require("../mysql");
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_KEY, {
@@ -102,14 +103,10 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   if (!user) return next(new AppError('No such user exists'));
 
   const resetToken = crypto.randomBytes(32).toString('hex');
-  const passwordResetToken = crypto
-    .createHash('sha512')
-    .digest(resetToken)
-    .toString('hex');
+  const passwordResetToken = crypto.createHash('sha512').update(resetToken).digest('hex');
+
   const resetTokenExpiresIn = Date.now() + 10 * 60 * 1000;
-
   await setResetToken(passwordResetToken, resetTokenExpiresIn / 1000, user.roll);
-
   const resetURL = `${req.protocol}://${req.get('host',)}/api/v1/users/resetPassword/${resetToken}`;
 
   try {
@@ -117,6 +114,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     return res.status(200).json({
       status: 'success',
       message: 'Password reset token sent to email',
+      resetToken // ONLY FOR DEVELOPMENT !!! REMEMBER TO REMOVE THIS LINE BEFORE PUSHING TO PROD
     });
   } catch (err) {
     await setResetToken(0, 0, roll);
@@ -132,27 +130,19 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 });
 
 exports.resetPassword = catchAsync(async (req, res, next) => {
-  const hashedToken = crypto
-    .createHash('sha512')
-    .digest(req.params.token)
-    .toString('hex');
+  const hashedToken = crypto.createHash('sha512').update(req.params.token).digest('hex');
 
-  //  const user = await User.findOne({
-  //    passwordResetToken: hashedToken,
-  //    resetTokenExpiresIn: { $gt: Date.now() },
-  //  });
-
-  const user = await findUserWithPasswordToken(hashedToken, Date.now());
-
+  const user = await findUserWithPasswordToken(hashedToken);
   if (!user) return next(new AppError('Token invalid or expired', 400));
 
-  user.password = req.body.password;
-  user.confirmPassword = req.body.confirmPassword;
-  user.passwordResetToken = undefined;
-  user.resetTokenExpiresIn = undefined;
-  await user.save();
+  const n = await resetDbPassword(user.roll, req.body.password);
+  if(n < 1)
+    return next(new AppError('Some error occurred while resetting password!'));
 
-  sendToken(user, 200, res);
+  res.status(200).json({
+    status: 'success',
+    msg: 'Password reset successfully'
+  });
 });
 
 exports.verifyUser = catchAsync(async (req, res, next) => {
@@ -161,7 +151,7 @@ exports.verifyUser = catchAsync(async (req, res, next) => {
   const id = token.substring(0, idx);
   const otp = token.substring(idx + 2);
   const rows = await validateUser(id, otp);
-  if(rows.affectedRows > 0)
+  if (rows.affectedRows > 0)
     res.redirect(`${process.env.FRONTEND_URI}/login`);
   else
     res.send("Failure");
@@ -190,7 +180,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 });
 
 exports.validateMail = catchAsync(async (req, res, next) => {
-  if(!req.user.is_validated) return next(new AppError('Please validate your account first', 401));
+  if (!req.user.is_validated) return next(new AppError('Please validate your account first', 401));
   next();
 });
 

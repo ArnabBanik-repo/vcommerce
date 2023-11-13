@@ -22,10 +22,15 @@ exports.setResetToken = async (passwordResetToken, expiresIn, id) => {
   await pool.query("UPDATE user SET password_reset_token=?, reset_token_expires_in=? WHERE roll=?", [passwordResetToken, expiresIn, id]);
 }
 
-exports.findUserWithPasswordToken = async (passwordResetToken, expiresIn) => {
-  const user = await pool.query("SELECT * FROM user WHERE passwordResetToken=?", [passwordResetToken]);
-  console.log(user);
-  console.log(expiresIn);
+exports.findUserWithPasswordToken = async (passwordResetToken) => {
+  const [rows] = await pool.query("SELECT roll FROM user WHERE password_reset_token=? AND reset_token_expires_in > ROUND(UNIX_TIMESTAMP(CURTIME(4)))", [passwordResetToken]);
+  return rows[0];
+}
+
+exports.resetDbPassword = async (id, password) => {
+  const hash_pass = await bcrypt.hash(password, 12);
+  const [rows] = await pool.query("UPDATE user SET password=?, password_reset_token=NULL, reset_token_expires_in=NULL WHERE roll=?", [hash_pass, id]);
+  return rows.affectedRows;
 }
 
 exports.changedPasswordAfter = function(userTime, jwtTime) {

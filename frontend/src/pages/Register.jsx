@@ -31,9 +31,7 @@ const Register = () => {
       );
 
       if (response.data.status === "success") {
-        console.log("Registration successful!");
-        navigate('/');
-        
+        alert("Click the link in your mail to complete verification"); 
       } else {
         console.error("Registration failed:", response.data.message);
       }

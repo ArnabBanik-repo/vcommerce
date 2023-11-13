@@ -1,9 +1,12 @@
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const { promisify } = require('util');
 const catchAsync = require('../utils/catchAsync');
-const { listUsers, listUser, createUser, removeUser, modifyUser, listCompleteUser, modifyPassword, correctPassword, changedPasswordAfter } = require("../mysql");
+const { listUsers, listUser, createUser, removeUser, modifyUser, listCompleteUser, modifyPassword, correctPassword, changedPasswordAfter, setResetToken, findUserWithPasswordToken } = require("../mysql");
 const AppError = require('../utils/AppError');
 const Product = require('../models/product');
+const Email = require("../utils/email");
+const { validateUser } = require("../mysql");
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_KEY, {
@@ -17,7 +20,7 @@ const sendToken = (user, status, res) => {
   user.password = undefined;
   user.password_changed_at = undefined;
   user.role = undefined;
-  
+
   let cookieOptions = {
     expires: new Date(
       Date.now() + process.env.COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
@@ -46,7 +49,7 @@ exports.getUser = catchAsync(async (req, res, next) => {
   const user = await listUser(id);
   if (!user) return next(new AppError("No user with that ID", 404));
 
-  const products = await Product.find({seller: req.params.id});
+  const products = await Product.find({ seller: req.params.id });
   user.products = products;
   res.status(200).json({
     status: 'success',
@@ -61,7 +64,11 @@ exports.getMe = catchAsync(async (req, _, next) => {
 
 exports.register = catchAsync(async (req, res, _) => {
   const { first_name, last_name, roll, email, phone, address, password } = req.body;
-  const user = await createUser(first_name, last_name, roll, email, phone, address, password);
+  const otp = crypto.randomBytes(6).toString('hex');
+  const user = await createUser(first_name, last_name, roll, email, phone, address, password, otp);
+  const url = `${req.protocol}://${req.get('host',)}/api/v1/users/verifyUser/${roll}::${otp}`;
+  console.log(roll, otp);
+  await new Email(user, url).sendWelcome();
   res.status(200).json({
     status: 'success',
     data: user,
@@ -89,6 +96,77 @@ exports.logout = catchAsync(async (req, res) => {
   });
 });
 
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+  const roll = req.body.roll;
+  const user = await listUser(roll);
+  if (!user) return next(new AppError('No such user exists'));
+
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  const passwordResetToken = crypto
+    .createHash('sha512')
+    .digest(resetToken)
+    .toString('hex');
+  const resetTokenExpiresIn = Date.now() + 10 * 60 * 1000;
+
+  await setResetToken(passwordResetToken, resetTokenExpiresIn / 1000, user.roll);
+
+  const resetURL = `${req.protocol}://${req.get('host',)}/api/v1/users/resetPassword/${resetToken}`;
+
+  try {
+    await new Email(user, resetURL).sendReset();
+    return res.status(200).json({
+      status: 'success',
+      message: 'Password reset token sent to email',
+    });
+  } catch (err) {
+    await setResetToken(0, 0, roll);
+    console.error(err);
+
+    return next(
+      new AppError(
+        'There was an error sending the email. Try again later.',
+        500,
+      ),
+    );
+  }
+});
+
+exports.resetPassword = catchAsync(async (req, res, next) => {
+  const hashedToken = crypto
+    .createHash('sha512')
+    .digest(req.params.token)
+    .toString('hex');
+
+  //  const user = await User.findOne({
+  //    passwordResetToken: hashedToken,
+  //    resetTokenExpiresIn: { $gt: Date.now() },
+  //  });
+
+  const user = await findUserWithPasswordToken(hashedToken, Date.now());
+
+  if (!user) return next(new AppError('Token invalid or expired', 400));
+
+  user.password = req.body.password;
+  user.confirmPassword = req.body.confirmPassword;
+  user.passwordResetToken = undefined;
+  user.resetTokenExpiresIn = undefined;
+  await user.save();
+
+  sendToken(user, 200, res);
+});
+
+exports.verifyUser = catchAsync(async (req, res, next) => {
+  const token = req.params.token;
+  const idx = token.indexOf('::');
+  const id = token.substring(0, idx);
+  const otp = token.substring(idx + 2);
+  const rows = await validateUser(id, otp);
+  if(rows.affectedRows > 0)
+    res.redirect(`${process.env.FRONTEND_URI}/login`);
+  else
+    res.send("Failure");
+});
+
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
 
@@ -111,32 +189,37 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+exports.validateMail = catchAsync(async (req, res, next) => {
+  if(!req.user.is_validated) return next(new AppError('Please validate your account first', 401));
+  next();
+});
+
 exports.restrictTo =
   (...roles) =>
-  (req, res, next) => {
-    if (!roles.includes(req.user.role))
-      return next(
-        new AppError(
-          'You do not have necessary permission to perform that action',
-          403,
-        ),
-      );
-    next();
-  };
+    (req, res, next) => {
+      if (!roles.includes(req.user.role))
+        return next(
+          new AppError(
+            'You do not have necessary permission to perform that action',
+            403,
+          ),
+        );
+      next();
+    };
 
 exports.deleteUser = catchAsync(async (req, res, next) => {
   const id = req.params.id;
   const t = await removeUser(id);
-  if(t === 0)
+  if (t === 0)
     return res.status(400).json({
-    status: 'fail',
-    msg: 'some error occurred, try that again'
-  });
+      status: 'fail',
+      msg: 'some error occurred, try that again'
+    });
 
-  await Product.deleteMany({seller: req.params.id});
+  await Product.deleteMany({ seller: req.params.id });
   res.status(200).json({
     status: 'success',
-  }); 
+  });
 });
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
@@ -147,11 +230,12 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 exports.updateMe = catchAsync(async (req, res, next) => {
   const id = req.user.roll;
 
-  let {phone, address} = req.body;
-  if(!phone) phone = req.user.phone;
-  if(!address) address = req.user.address;
+  let { email, phone, address } = req.body;
+  if (!email) email = req.user.email;
+  if (!phone) phone = req.user.phone;
+  if (!address) address = req.user.address;
 
-  const ans = await modifyUser(id, phone, address);
+  const ans = await modifyUser(id, email, phone, address);
   res.status(200).json({
     status: 'success',
     data: ans,

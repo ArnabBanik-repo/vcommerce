@@ -7,6 +7,8 @@ CREATE TABLE user (
     address VARCHAR(255),
     password VARCHAR(255) NOT NULL,
     password_changed_at TIMESTAMP,
+    password_reset_token VARCHAR(255),
+    reset_token_expires_in TIMESTAMP,
     role CHAR(5) DEFAULT 'user',
     CHECK (CHAR_LENGTH(password) >= 8),
     CHECK (CHAR_LENGTH(phone) = 10),

@@ -9,6 +9,7 @@ const User = ({ user }) => {
     setUpdate(!update);
   }
 
+  const mail = useRef();
   const phone = useRef();
   const address = useRef();
 
@@ -17,6 +18,7 @@ const User = ({ user }) => {
 
     try {
       const prod = {
+        email: mail && mail.current.value,
         phone: phone && phone.current.value,
         address: address && address.current.value,
       };
@@ -87,15 +89,18 @@ const User = ({ user }) => {
         <div className="flex items-center justify-center mt-10 mx-10" >
           <form className=" bg-gray-100 p-8 rounded-md shadow-gray-600 shadow-md w-1/2">
             <div className="grid">
-              {/* Third Column */}
               <div className='flex flex-col'>
                 <div className="mb-4 flex items-center justify-evenly">
-                  <label htmlFor="phone" className="text-gray-700">Phone</label>
-                  <input type="text" id="phone" name="phone" ref={phone} className="border p-2 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
+                  <label htmlFor="phone" className="text-gray-700">Email</label>
+                  <input ref={mail} className="border p-2 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
                 </div>
-                <div className="flex items-center justify-evenly">
+                <div className="mb-4 flex items-center justify-evenly">
                   <label htmlFor="address" className="text-gray-700">Address</label>
-                  <input type="text" id="address" name="address" ref={address} className="border p-2 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
+                  <input ref={address} className="border p-2 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
+                </div>
+                <div className="mb-4 flex items-center justify-evenly">
+                  <label htmlFor="phone" className="text-gray-700">Phone</label>
+                  <input ref={phone} className="border p-2 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
                 </div>
               </div>
             </div>

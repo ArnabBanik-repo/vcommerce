@@ -1,5 +1,6 @@
 const mysql = require("mysql2");
 const bcrypt = require('bcrypt');
+const AppError = require("./utils/AppError");
 
 const pool = mysql
   .createPool({
@@ -12,6 +13,25 @@ const pool = mysql
 
 exports.correctPassword = async (pass, origPass) =>
   await bcrypt.compare(pass, origPass);
+
+exports.setResetToken = async (passwordResetToken, expiresIn, id) => {
+  if (passwordResetToken == 0) {
+    passwordResetToken = null;
+    expiresIn = null;
+  }
+  await pool.query("UPDATE user SET password_reset_token=?, reset_token_expires_in=? WHERE roll=?", [passwordResetToken, expiresIn, id]);
+}
+
+exports.findUserWithPasswordToken = async (passwordResetToken) => {
+  const [rows] = await pool.query("SELECT roll FROM user WHERE password_reset_token=? AND reset_token_expires_in > ROUND(UNIX_TIMESTAMP(CURTIME(4)))", [passwordResetToken]);
+  return rows[0];
+}
+
+exports.resetDbPassword = async (id, password) => {
+  const hash_pass = await bcrypt.hash(password, 12);
+  const [rows] = await pool.query("UPDATE user SET password=?, password_reset_token=NULL, reset_token_expires_in=NULL WHERE roll=?", [hash_pass, id]);
+  return rows.affectedRows;
+}
 
 exports.changedPasswordAfter = function(userTime, jwtTime) {
   if (userTime === undefined) return false;
@@ -44,6 +64,7 @@ exports.createUser = async (
   phone,
   address,
   password,
+  otp
 ) => {
   const hash_pass = await bcrypt.hash(password, 12);
   first_name = first_name.toLowerCase();
@@ -51,10 +72,12 @@ exports.createUser = async (
   address = address.toLowerCase();
   roll = roll.toLowerCase();
 
-  await pool.query("INSERT INTO user VALUES(?, ?, ?, ?, ?, ?, ?, null, 'user')", [
+
+  await pool.query("INSERT INTO user VALUES(?, ?, ?, ?, ?, ?, ?, ?, 'user', null, null, null, false)", [
     first_name,
     last_name,
     roll,
+    otp,
     email,
     phone,
     address,
@@ -68,11 +91,21 @@ exports.removeUser = async (id) => {
   return res[0].affectedRows;
 };
 
-exports.modifyUser = async (id, phone, address) => {
+
+exports.modifyUser = async (id, email, phone, address) => {
   address = address.toLowerCase();
-  await pool.query("UPDATE user SET phone=?, address=? WHERE roll=?", [phone, address, id]);
+  await pool.query("UPDATE user SET email=?, phone=?, address=? WHERE roll=?", [email, phone, address, id]);
   return this.listUser(id);
 };
+
+exports.validateUser = async (id, otp) => {
+  let [rows] = await pool.query('SELECT otp FROM user WHERE roll=?', [id]);
+  console.log(rows[0].otp);
+  if (otp !== rows[0].otp)
+    return new AppError("Invalid otp submitted");
+  [rows] = await pool.query('UPDATE user SET is_validated=true WHERE roll=?', [id]);
+  return rows;
+}
 
 exports.modifyPassword = async (id, password) => {
   const hash_pass = await bcrypt.hash(password, 12);

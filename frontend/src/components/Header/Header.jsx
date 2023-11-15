@@ -15,7 +15,7 @@ const Header = () => {
   }
 
   return (
-    <section className=" flex items-center bg-[#9CFF88] justify-between px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16" style={{ height: '10vh' }}>
+    <section className="sticky flex items-center bg-[#9CFF88] justify-between px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 2xl:px-16" style={{ height: '10vh' }}>
       <div className="flex items-center">
         <Link to="/">
           <img src="http://localhost:5173/VcommerceLogo.png" alt="Logo" width={130} />

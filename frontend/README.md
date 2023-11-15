@@ -13,3 +13,4 @@
 * Separate contexts for User, Favourites and Products
 * Hamburger menu for Navbar✅
 * Mobile responsive
+* Duplicate Registration error not shown in frontend

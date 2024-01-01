@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "html-to-text": "^9.0.5",
+    "i": "^0.3.7",
+    "nodemailer": "^6.9.7",
+    "pug": "^3.0.2",
     "react-typed": "^1.2.0",
     "react-typing-text": "^1.0.4",
     "text-animations-react": "^0.1.8"

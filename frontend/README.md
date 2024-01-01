@@ -4,3 +4,4 @@
 * Filter functionality
 * Footer
 * Mobile responsive
+* Duplicate Registration error not shown in frontend

@@ -92,15 +92,15 @@ const User = ({ user }) => {
               <div className='flex flex-col'>
                 <div className="mb-4 flex items-center justify-evenly">
                   <label htmlFor="phone" className="text-gray-700">Email</label>
-                  <input ref={mail} className="border p-2 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
+                  <input ref={mail} placeholder={user.email} className="border p-2 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
                 </div>
                 <div className="mb-4 flex items-center justify-evenly">
                   <label htmlFor="address" className="text-gray-700">Address</label>
-                  <input ref={address} className="border p-2 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
+                  <input ref={address} placeholder={user.address} className="border p-2 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
                 </div>
                 <div className="mb-4 flex items-center justify-evenly">
                   <label htmlFor="phone" className="text-gray-700">Phone</label>
-                  <input ref={phone} className="border p-2 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
+                  <input ref={phone} placeholder={user.phone} className="border p-2 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
                 </div>
               </div>
             </div>

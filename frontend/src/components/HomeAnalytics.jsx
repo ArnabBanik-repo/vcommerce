@@ -15,28 +15,17 @@ const HomeAnalytics = () => {
           <p className="text-[#00df9a] md:text-3xl sm:text-2xl text-xl font-bold ">
             VIT's Own Marketplace
           </p>
-          <h1 className="md:text-4xl sm:text-3xl text-2xl font-bold py-2 text-black">
+          <h1 className="md:text-4xl sm:text-3xl text-2xl font-bold mt-2 mb-4 text-black">
             Shop Smart, Connect Locally - VIT's Exclusive Marketplace
           </h1>
           <p className="text-black">
-            Welcome to Vcommerce, the beating heart of the vibrant VIT
-            community! We've crafted a unique space where VITians trade and
-            connect, shaping a dynamic marketplace that goes beyond the
-            ordinary. A digital hub buzzing with energy, where
-            students seamlessly buy, sell, and trade everything from class notes
-            to cool gadgets. Vcommerce isn't just a platform; it's an
-            experience, a campus lifeline that bridges the gap between students
-            and their needs. Dive into the pulse of campus commerce, where every
-            click tells a story, and every trade is a step towards building a
-            stronger, more connected VIT community. Join us in this exciting
-            journey as we redefine the way VITians engage in commerce—because at
-            Vcommerce, it's not just about transactions; it's about fostering
-            connections that last a lifetime. Welcome to your personalized
-            marketplace, where the spirit of VIT thrives through every deal!
+            Discover Vcommerce, the dynamic hub for VITians! Seamlessly trade class notes and gadgets in a vibrant digital space. Dive into campus commerce, where every click tells a story, building a connected VIT community. Redefine how VITians engage in commerce – it's about lasting connections. Welcome to your personalized marketplace, where the spirit of VIT thrives through every deal!
           </p>
-          <Link to="/products"><button className="bg-black text-white w-[200px] rounded-md font-medium my-6 mx-auto md:mx-0 py-3">
-            View Products
-          </button></Link>
+          <Link to="/products">
+            <button className="bg-black text-white hover:shadow-md hover:-translate-y-0.5 transition-all w-[175px] rounded-md font-medium my-6 mx-auto md:mx-0 py-3">
+              View Products
+            </button>
+          </Link>
         </div>
       </div>
     </div>

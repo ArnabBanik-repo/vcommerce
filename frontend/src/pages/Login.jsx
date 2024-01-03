@@ -26,7 +26,7 @@ const Login = () => {
 
       if (response.data.status === "success") {
         authLogin(response.data.user);
-        navigate('/');
+        navigate('/products');
       } else {
         console.error("Login failed:", response.data.message);
       }

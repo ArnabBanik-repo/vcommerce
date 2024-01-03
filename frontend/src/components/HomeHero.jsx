@@ -28,7 +28,7 @@ const HomeHero = () => {
           Beyond Classes, Connect through Commerce - VIT, Let's Vcommerce
         </p>
         <Link to="/login">
-          <button className="bg-black rounded-md font-medium my-6 mx-10 py-3 px-8 text-[#B6FFA2] font-bold">
+          <button className="bg-black rounded-md my-6 mx-10 py-3 px-8 text-[#B6FFA2] font-medium hover:-translate-y-0.5 hover:shadow-md transition-all">
             Get Started
           </button>
         </Link>

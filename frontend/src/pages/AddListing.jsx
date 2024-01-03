@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AddListing = () => {
   const [title, setTitle] = useState('');
@@ -11,42 +12,44 @@ const AddListing = () => {
   const [photo, setPhoto] = useState('');
 
   const handlePhotoChange = (e) => {
-    const file = e.target.files[0]; 
+    const file = e.target.files[0];
     setPhoto(file);
   };
 
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-    const formData = new FormData();
-    formData.append('photo', photo);
+      const formData = new FormData();
+      formData.append('photo', photo);
 
-    const otherData = {
-      title,
-      category,
-      condition,
-      brand,
-      desc,
-      price,
-    };
+      const otherData = {
+        title,
+        category,
+        condition,
+        brand,
+        desc,
+        price,
+      };
 
-    Object.keys(otherData).forEach((key) => {
-      formData.append(key, otherData[key]);
-    });
+      Object.keys(otherData).forEach((key) => {
+        formData.append(key, otherData[key]);
+      });
 
-    await axios.post(
-      'http://localhost:5000/api/v1/products',
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        withCredentials: true,
-      }
-    );
+      await axios.post(
+        'http://localhost:5000/api/v1/products',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          withCredentials: true,
+        }
+      );
 
-    alert("Product Listed");
+      alert("Product Listed");
+      navigate('/products');
     } catch (error) {
       alert(error.response.data.message);
     }
@@ -56,7 +59,7 @@ const AddListing = () => {
     <div className="flex items-center justify-center h-screen">
       <form onSubmit={handleSubmit} className="bg-gray-100 p-8 rounded-md shadow-black shadow-md w-8/12">
         <h2 className="text-2xl font-bold mb-4">Add Listing</h2>
-        
+
         <div className="mb-4">
           <label htmlFor="title" className="block text-sm font-medium">
             Title
@@ -77,12 +80,12 @@ const AddListing = () => {
             Category
           </label>
           <select
-          id="category"
-          name="category"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="w-full py-2 px-3 bg-white rounded-md focus:outline-none focus:border-blue-500"
-          required
+            id="category"
+            name="category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="w-full py-2 px-3 bg-white rounded-md focus:outline-none focus:border-blue-500"
+            required
           >
             <option value="">Select a category</option>
             <option value="book">Book</option>
@@ -128,12 +131,12 @@ const AddListing = () => {
             required
           />
         </div>
-       
+
 
 
         <div className="mb-4">
           <label htmlFor="desc" className="block text-sm font-medium">
-          Description
+            Description
           </label>
           <textarea
             id="desc"
@@ -165,10 +168,10 @@ const AddListing = () => {
             Product Image
           </label>
           <input type="file" id="photo" name="photo" accept="image/png, image/jpeg"
-           onChange={handlePhotoChange}
-           className="w-full py-2 px-3 bg-white  rounded-md focus:outline-none focus:border-blue-500"
-           required />
-          
+            onChange={handlePhotoChange}
+            className="w-full py-2 px-3 bg-white  rounded-md focus:outline-none focus:border-blue-500"
+            required />
+
         </div>
 
         <button

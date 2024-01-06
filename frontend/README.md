@@ -12,8 +12,8 @@
 - [X] Form should be pre-filled
 - [X] Add password change option
 - [X] Forgot password option 
-- [ ] Better error messages for email change in edit user profile
-- [ ] Fix paddings in edit user profile
+- [X] Better error messages for email change in edit user profile
+- [X] Fix paddings in edit user profile
 - [X] Register page UI
 - [X] Keep alert for non-verified users and keep a button to send a verification mail there
 - [X] Remove favourite button for self product page

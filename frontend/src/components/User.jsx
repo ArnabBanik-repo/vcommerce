@@ -14,7 +14,7 @@ const User = ({ user }) => {
   const handleChange = () => setChange(() => !change);
 
   if (update)
-    return <EditUser handleUpdate />
+    return <EditUser handleUpdate={handleUpdate} />
 
   if (change)
     return <ChangePassword handleChange={handleChange} />

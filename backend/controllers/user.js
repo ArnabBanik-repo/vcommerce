@@ -240,10 +240,6 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
     return next(new AppError('Incorrect password entered', 401));
 
   const ans = await modifyPassword(id, req.body.newPassword);
-
-  res.status(200).json({
-    status: "success",
-    data: ans
-  });
+  sendToken(user, 200, res);
 });
 

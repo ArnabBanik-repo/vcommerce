@@ -20,7 +20,7 @@ const ChangePassword = ({ handleChange }) => {
     axios.patch('http://localhost:5000/api/v1/users/updatePassword', { password: orig.current.value, newPassword: pass.current.value }, { withCredentials: true })
       .then(_ => {
         alert("Password changed successfully");
-        navigate('/login')
+        handleChange();
       })
       .catch(err => console.error(err))
   }
@@ -43,7 +43,7 @@ const ChangePassword = ({ handleChange }) => {
         </div>
         <div className='flex w-full justify-center gap-4'>
           <button className='outline-none border-none text-white bg-blue-500 hover:bg-blue-700 transition-all hover:shadow-md px-4 py-2 rounded-md' onClick={handleSubmit}>Change Password</button>
-          <button className='outline-none border-none text-white bg-red-500 hover:bg-blue-700 transition-all hover:shadow-md px-4 py-2 rounded-md' onClick={handleChange}>Cancel</button>
+          <button className='outline-none border-none text-white bg-red-500 hover:bg-red-700 transition-all hover:shadow-md px-4 py-2 rounded-md' onClick={handleChange}>Cancel</button>
         </div>
       </form>
     </div>

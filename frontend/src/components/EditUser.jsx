@@ -29,46 +29,33 @@ const EditUser = ({ handleUpdate }) => {
         console.error("Edit failed:", response.data.message);
       }
     } catch (error) {
-      alert(error.response.data.message)
+      if(error.response.data.message === 'CONSTRAINT `user_chk_2` failed for `test`.`user`')
+        alert('Please enter a valid VIT email only');
+      else
+        alert('Please check your details and try again');
       console.log(error);
     }
   }
 
   return (
-    <div className="flex items-center justify-center mt-10 mx-10" >
-      <form className=" bg-gray-100 p-8 rounded-md shadow-gray-600 shadow-md w-1/2">
-        <div className="grid">
-          <div className='flex flex-col'>
-            <div className="mb-4 flex items-center justify-evenly">
-              <label htmlFor="phone" className="text-gray-700">Email</label>
-              <input ref={mail} placeholder={user.email} className="border p-2 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
-            </div>
-            <div className="mb-4 flex items-center justify-evenly">
-              <label htmlFor="address" className="text-gray-700">Address</label>
-              <input ref={address} placeholder={user.address} className="border p-2 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
-            </div>
-            <div className="mb-4 flex items-center justify-evenly">
-              <label htmlFor="phone" className="text-gray-700">Phone</label>
-              <input ref={phone} placeholder={user.phone} className="border p-2 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
-            </div>
-          </div>
+    <div className='h-[90vh] grid grid-cols-1 place-items-center'>
+      <form className='h-max w-80 shadow-md grid place-items-center p-8 rounded-md gap-5' onSubmit={updateInfo}>
+        <p className='text-xl text-bolder mb-4'>Edit Profile</p>
+        <div className='mb-2 w-full'>
+          <p className='text-left'>Email ID</p>
+          <input type='email' className='w-full py-2 px-3 bg-gray-200 rounded-md border-2 border-gray-200 focus:outline-none focus:border-blue-500 focus:border-2' placeholder={user.email} ref={mail} />
         </div>
-
-        <div className="flex justify-center mt-4 items-center gap-4">
-          <button
-            type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring focus:border-blue-300"
-            onClick={updateInfo}
-          >
-            Edit Info
-          </button>
-
-          <button
-            className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none focus:ring focus:border-red-300"
-            onClick={handleUpdate}
-          >
-            Cancel
-          </button>
+        <div className='mb-2 w-full'>
+          <p className='text-left'>Address</p>
+          <input className='w-full py-2 px-3 bg-gray-200 rounded-md border-2 border-gray-200 focus:outline-none focus:border-blue-500 focus:border-2' placeholder={user.address} ref={address} />
+        </div>
+        <div className='mb-2 w-full'>
+          <p className='text-left'>Phone Number</p>
+          <input type='text' minLength={10} maxLength={10} className='w-full py-2 px-3 bg-gray-200 rounded-md border-2 border-gray-200 focus:outline-none focus:border-blue-500 focus:border-2' placeholder={user.phone} ref={phone} />
+        </div>
+        <div className='flex w-full justify-center gap-4'>
+          <button className='outline-none border-none text-white bg-blue-500 hover:bg-blue-700 transition-all hover:shadow-md px-4 py-2 rounded-md'>Update Profile</button>
+          <button className='outline-none border-none text-white bg-red-500 hover:bg-red-700 transition-all hover:shadow-md px-4 py-2 rounded-md' onClick={handleUpdate}>Cancel</button>
         </div>
       </form>
     </div>

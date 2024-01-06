@@ -43,17 +43,18 @@ To run the project, you will need:
 - [Node.js](https://nodejs.org/) (v14 or higher)
 - [npm](https://www.npmjs.com/) (usually comes with Node.js installation)
 - [MongoDB](https://www.mongodb.com/) (either installed locally or use a cloud-based solution)
+- [MySQL](https://www.mysql.com/) (either installed locally or use a cloud-based solution)
 
 ### Installation
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/VCommerce.git
+   git clone https://github.com/Tech-Taxi/vcommerce.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd VCommerce
+   cd vcommerce
    ```
 3. Install the required dependencies:
    ```bash

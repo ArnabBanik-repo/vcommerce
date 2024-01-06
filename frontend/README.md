@@ -10,11 +10,11 @@
 - [X] After login show some alert, and redirect to products page
 - [ ] Edit profile page if email is changed, verification should be done again
 - [X] Form should be pre-filled
-- [ ] Add password change option
+- [X] Add password change option
 - [X] Forgot password option 
 - [ ] Better error messages for email change in edit user profile
 - [ ] Fix paddings in edit user profile
-- [ ] Register page UI
+- [X] Register page UI
 - [X] Keep alert for non-verified users and keep a button to send a verification mail there
 - [X] Remove favourite button for self product page
 - [X] Add delete product feature

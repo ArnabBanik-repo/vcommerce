@@ -58,13 +58,10 @@ const User = ({ user }) => {
         </div>
       </div>
 
-      {
-        visible &&
-        <div className='absolute bottom-20 right-10 bg-gray-200 w-44 rounded-md'>
-          <p className='h-16 px-4 flex items-center border-b border-gray-400 hover:bg-gray-300 rounded-md cursor-pointer transition-all' onClick={handleUpdate}>Edit Profile</p>
-          <p className='h-16 px-4 flex items-center hover:bg-gray-300 rounded-md cursor-pointer transition-all' onClick={handleChange}>Change Password</p>
-        </div>
-      }
+      <div className={`absolute bottom-20 right-10 bg-gray-200 w-44 rounded-md transition-all ${visible ? 'opacity-1' : 'opacity-0'}`}>
+        <p className='h-16 px-4 flex items-center border-b border-gray-400 hover:bg-gray-300 rounded-md cursor-pointer transition-all' onClick={handleUpdate}>Edit Profile</p>
+        <p className='h-16 px-4 flex items-center hover:bg-gray-300 rounded-md cursor-pointer transition-all' onClick={handleChange}>Change Password</p>
+      </div>
 
       <div className="absolute bottom-5 right-10" onClick={handleVisible}>
         <button className="bg-white outline-none border-none text-xl text-black px-3 py-3 rounded-full hover:bg-gray-300">

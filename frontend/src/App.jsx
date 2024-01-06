@@ -35,7 +35,7 @@ function App() {
           <Route path="resetPassword/:id" element={<ResetPassword />}></Route>
           <Route path="addlisting" element={<AddListing />}></Route>
         </Routes>
-        <Link to={'/'} className='fixed bottom-5 right-5 h-12 w-12 bg-green-500 rounded-full shadow-md grid place-items-center text-white'>
+        <Link to={'/'} className='fixed bottom-5 right-5 h-12 w-12 bg-green-500 rounded-full shadow-md grid place-items-center text-white hover:bg-green-600 transition-all'>
           <FaHome />
         </Link>
       </AuthProvider>

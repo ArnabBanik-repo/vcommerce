@@ -4,9 +4,9 @@
 * Filter functionality
 * Footer
 * Mobile responsive
-* Duplicate Registration error not shown in frontend
 
 ## Important
+- [X] Registration page errors not displayed
 - [X] After login show some alert, and redirect to products page
 - [X] Edit profile page if email is changed, verification should be done again
 - [X] Form should be pre-filled

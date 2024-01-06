@@ -66,7 +66,7 @@ To run the project, you will need:
 5. Start the backend and frontend server
    ```bash
     cd backend && npm run dev
-   cd ..
+    cd ..
     cd frontend && npm run dev
    ```
 6. Access the application in your browser at http://localhost:5173.

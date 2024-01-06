@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('node:crypto');
 const { promisify } = require('util');
 const catchAsync = require('../utils/catchAsync');
-const { listUsers, listUser, createUser, removeUser, modifyUser, listCompleteUser, modifyPassword, correctPassword, changedPasswordAfter, setResetToken, findUserWithPasswordToken } = require("../mysql");
+const { listUsers, listUser, createUser, removeUser, modifyUser, listCompleteUser, modifyPassword, correctPassword, changedPasswordAfter, setResetToken, findUserWithPasswordToken, generateMailOtp } = require("../mysql");
 const AppError = require('../utils/AppError');
 const Product = require('../models/product');
 const Email = require("../utils/email");
@@ -68,13 +68,25 @@ exports.register = catchAsync(async (req, res, _) => {
   const otp = crypto.randomBytes(6).toString('hex');
   const user = await createUser(first_name, last_name, roll, email, phone, address, password, otp);
   const url = `${req.protocol}://${req.get('host',)}/api/v1/users/verifyUser/${roll}::${otp}`;
-  console.log(roll, otp);
   await new Email(user, url).sendWelcome();
   res.status(200).json({
     status: 'success',
     data: user,
   });
 });
+
+exports.generateVerifMail = catchAsync(async (req, res, _) => {
+  const roll = req.user.roll;
+  const otp = crypto.randomBytes(6).toString('hex');
+  const url = `${req.protocol}://${req.get('host',)}/api/v1/users/verifyUser/${roll}::${otp}`;
+  await generateMailOtp(roll, otp);
+  console.log("req.user");
+  console.log(req.user);
+  await new Email(req.user, url).sendWelcome();
+  res.status(200).json({
+    status: 'success',
+  });
+})
 
 exports.login = catchAsync(async (req, res, next) => {
   const { id, password } = req.body;
@@ -219,13 +231,15 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 
 exports.updateMe = catchAsync(async (req, res, next) => {
   const id = req.user.roll;
+  let is_validated = true;
 
   let { email, phone, address } = req.body;
   if (!email) email = req.user.email;
+  else is_validated = false;
   if (!phone) phone = req.user.phone;
   if (!address) address = req.user.address;
 
-  const ans = await modifyUser(id, email, phone, address);
+  const ans = await modifyUser(id, email, phone, address, is_validated);
   res.status(200).json({
     status: 'success',
     data: ans,

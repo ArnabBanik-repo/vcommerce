@@ -51,6 +51,7 @@ const Login = () => {
           <input value={id}
             onChange={(e) => setid(e.target.value)}
             className="w-full py-2 px-3 bg-gray-200 rounded-md border-2 border-gray-200 focus:outline-none focus:border-blue-500 focus:border-2"
+            disabled = {user?true:false}
             required
           />
         </div>
@@ -61,6 +62,7 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full py-2 px-3 bg-gray-200 rounded-md border-2 border-gray-200 focus:outline-none focus:border-blue-500 focus:border-2"
+            disabled = {user?true:false}
             required
           />
         </div>

@@ -14,6 +14,9 @@ const pool = mysql
 exports.correctPassword = async (pass, origPass) =>
   await bcrypt.compare(pass, origPass);
 
+exports.generateMailOtp = async (roll, otp) =>
+  await pool.query("UPDATE user SET otp=? WHERE roll=?", [otp, roll]);
+
 exports.setResetToken = async (passwordResetToken, expiresIn, id) => {
   if (passwordResetToken == 0) {
     passwordResetToken = null;
@@ -92,9 +95,9 @@ exports.removeUser = async (id) => {
 };
 
 
-exports.modifyUser = async (id, email, phone, address) => {
+exports.modifyUser = async (id, email, phone, address, is_validated) => {
   address = address.toLowerCase();
-  await pool.query("UPDATE user SET email=?, phone=?, address=? WHERE roll=?", [email, phone, address, id]);
+  await pool.query("UPDATE user SET email=?, phone=?, address=?, is_validated=? WHERE roll=?", [email, phone, address, is_validated, id]);
   return this.listUser(id);
 };
 

@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import axios from 'axios';
 
 const Header = () => {
   const { user, logout: authLogout } = useAuth();
   const [display, setDisplay] = useState(false);
 
-  const handleLogout = () => {
-    authLogout();
-  }
-
-  const handleDisplay = () => {
-    setDisplay(!display);
-  }
+  const handleLogout = () => authLogout();
+  const handleDisplay = () => setDisplay(!display);
+  const handleVerify = () =>
+    axios.get('http://localhost:5000/api/v1/users/generateVerifMail', {withCredentials: true})
+      .then(_ => alert('Verification mail sent'))
+      .catch(err => console.error(err));
 
   return (
     <>
@@ -40,8 +40,9 @@ const Header = () => {
       </section>
       {
         user && !user.is_validated &&
-        <div className='bg-red-500 py-3 text-white text-lg m-auto text-center'>
-          <p>Verify your email</p>
+        <div className='bg-red-500 py-3 text-white text-lg text-center flex justify-center items-center gap-5' >
+          <p>Your email is not yet verified</p>
+          <button className='py-1 px-2 rounded-md border-2 border-red-700 hover:bg-red-700 transition-all' onClick={handleVerify}>Verify Email</button>
         </div>
       }
     </>

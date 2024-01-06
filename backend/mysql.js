@@ -47,7 +47,7 @@ exports.listUsers = async () => {
 };
 
 exports.listUser = async (id) => {
-  const [rows] = await pool.query("SELECT first_name, last_name, roll, email, phone, address FROM user WHERE roll=?", [id]);
+  const [rows] = await pool.query("SELECT first_name, last_name, roll, email, phone, address, is_validated FROM user WHERE roll=?", [id]);
   return rows[0];
 };
 

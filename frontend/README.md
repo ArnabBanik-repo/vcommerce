@@ -11,10 +11,12 @@
 - [ ] Edit profile page if email is changed, verification should be done again
 - [X] Form should be pre-filled
 - [ ] Add password change option
-- [ ] Add password reset option
+- [ ] Forgot password option 
 - [ ] Better error messages for email change in edit user profile
 - [ ] Fix paddings in edit user profile
 - [ ] Register page UI
-- [ ] Keep alert for non-verified users and keep a button to send a verification mail there
+- [-] Keep alert for non-verified users and keep a button to send a verification mail there
 - [X] Remove favourite button for self product page
 - [X] Add delete product feature
+- [ ] CTA button link space very large
+- [ ] After logout, favourited products appear favourited. Default action doesn't return back.

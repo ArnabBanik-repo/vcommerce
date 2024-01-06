@@ -1,8 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const {getProducts, getProduct, addProduct, updateProduct, deleteProduct, deleteProductAdmin, uploadPostPhoto, resizePhoto} = require('../controllers/product')
-const { protect, restrictTo } = require('../controllers/user')
-const { validateMail } = require("../controllers/user")
+const { protect, restrictTo, validateMail } = require('../controllers/user')
 
 router.route('/').get(getProducts)
 router.route('/:id').get(getProduct)

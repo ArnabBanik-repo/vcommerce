@@ -16,28 +16,22 @@ function App() {
 
   return (
     <BrowserRouter>
-    <AuthProvider>
-    <Header></Header>
-      <Routes>
-        <Route path="/">
-          <Route
-            index
-            element={
-                <Home /> 
-            }
-          />
-          <Route path="contact" element={<Contact />} />
-          <Route path="favourites" element={<Favourites />} />
-          <Route path="products" element={<Products />} />
-          <Route path="userinfo" element={<Userinfo />} />
-          <Route path="login" element={<Login />} />
-          <Route path ="singleproduct/:productid" element={<SingleProduct />}/>
-          
-        </Route>
-        <Route path="register" element={<Register/>}></Route>
-        <Route path="addlisting" element={<AddListing/>}></Route>
-      </Routes>
-    </AuthProvider>
+      <AuthProvider>
+        <Header />
+        <Routes>
+          <Route path="/">
+            <Route index element={<Home />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="favourites" element={<Favourites />} />
+            <Route path="products" element={<Products />} />
+            <Route path="userinfo" element={<Userinfo />} />
+            <Route path="login" element={<Login />} />
+            <Route path="singleproduct/:productid" element={<SingleProduct />} />
+          </Route>
+          <Route path="register" element={<Register />}></Route>
+          <Route path="addlisting" element={<AddListing />}></Route>
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

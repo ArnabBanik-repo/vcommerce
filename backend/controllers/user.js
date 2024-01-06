@@ -107,14 +107,14 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 
   const resetTokenExpiresIn = Date.now() + 10 * 60 * 1000;
   await setResetToken(passwordResetToken, resetTokenExpiresIn / 1000, user.roll);
-  const resetURL = `${req.protocol}://${req.get('host',)}/api/v1/users/resetPassword/${resetToken}`;
+  // const resetURL = `${req.protocol}://${req.get('host',)}/api/v1/users/resetPassword/${resetToken}`;
+  const resetURL = `${process.env.FRONTEND_URI}/resetPassword/${resetToken}`;
 
   try {
     await new Email(user, resetURL).sendReset();
     return res.status(200).json({
       status: 'success',
       message: 'Password reset token sent to email',
-      resetToken // ONLY FOR DEVELOPMENT !!! REMEMBER TO REMOVE THIS LINE BEFORE PUSHING TO PROD
     });
   } catch (err) {
     await setResetToken(0, 0, roll);
@@ -136,7 +136,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   if (!user) return next(new AppError('Token invalid or expired', 400));
 
   const n = await resetDbPassword(user.roll, req.body.password);
-  if(n < 1)
+  if (n < 1)
     return next(new AppError('Some error occurred while resetting password!'));
 
   res.status(200).json({

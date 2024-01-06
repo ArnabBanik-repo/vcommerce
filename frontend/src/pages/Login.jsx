@@ -44,56 +44,59 @@ const Login = () => {
       className="flex items-center justify-center"
       style={{ minHeight: "calc(100vh - 13vh)" }}
     >
-      <form
-        onSubmit={() => {user ? handleLogout() : handleLogin()}}
-        className="opacity-70 p-8 rounded-md shadow-md"
-      >
+      <form onSubmit={() => { user ? handleLogout() : handleLogin() }} className="opacity-70 p-8 rounded-md shadow-md">
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         <div className="mb-4">
-          <label htmlFor="id" className="block text-sm font-medium">
-            ID Number
-          </label>
-          <input
-            type="text"
-            id="id"
-            name="id"
-            value={id}
+          <label className="block text-sm font-medium">Roll Number</label>
+          <input value={id}
             onChange={(e) => setid(e.target.value)}
-            className="w-full py-2 px-3 bg-gray-200 rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full py-2 px-3 bg-gray-200 rounded-md border-2 border-gray-200 focus:outline-none focus:border-blue-500 focus:border-2"
             required
           />
         </div>
         <div className="mb-6">
-          <label htmlFor="password" className="block text-sm font-medium">
-            Password
-          </label>
+          <label className="block text-sm font-medium">Password</label>
           <input
             type="password"
-            id="password"
-            name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full py-2 px-3 bg-gray-200 rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full py-2 px-3 bg-gray-200 rounded-md border-2 border-gray-200 focus:outline-none focus:border-blue-500 focus:border-2"
             required
           />
         </div>
 
         {
           user ?
-            <button onClick={handleLogout} className={'w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none'}>Logout</button>
+            <button
+              onClick={handleLogout}
+              className={'w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none'}>
+              Logout
+            </button>
             :
-            <button onClick={handleLogin} className={'w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none'}>Login</button>
+            <button
+              onClick={handleLogin}
+              className={'w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none'}>
+              Login
+            </button>
         }
 
         {user && (
           <div className="mt-4 text-center">
-            <p className="text-gray-500">Logged in as: {user.first_name}</p>
+            <p className="text-gray-500">Logged in as: {user.first_name} {user.last_name}</p>
           </div>
         )}
-        <Link to="/register" style={{ color: 'green' }}>
-          Register New User
-        </Link>
+
+        <div className="flex gap-4 mt-1">
+          <Link to="/register" className="text-green-800 text-sm">
+            Register New User
+          </Link>
+          <Link to="/forgotPassword" className="text-sm">
+            Forgot Password?
+          </Link>
+        </div>
+
       </form>
+
 
     </div>
   );

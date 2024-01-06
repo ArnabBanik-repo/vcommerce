@@ -1,6 +1,6 @@
 import Header from "./components/Header/Header";
 import Home from "./pages/Home";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import Userinfo from "./pages/Userinfo";
 import Contact from "./pages/Contact";
@@ -9,8 +9,10 @@ import Products from "./pages/Products";
 import SingleProduct from "./pages/SingleProduct";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import AddListing from "./pages/AddListing";
-
+import { FaHome } from "react-icons/fa";
 
 function App() {
 
@@ -29,8 +31,13 @@ function App() {
             <Route path="singleproduct/:productid" element={<SingleProduct />} />
           </Route>
           <Route path="register" element={<Register />}></Route>
+          <Route path="forgotPassword" element={<ForgotPassword />}></Route>
+          <Route path="resetPassword/:id" element={<ResetPassword />}></Route>
           <Route path="addlisting" element={<AddListing />}></Route>
         </Routes>
+        <Link to={'/'} className='fixed bottom-5 right-5 h-12 w-12 bg-green-500 rounded-full shadow-md grid place-items-center text-white'>
+          <FaHome />
+        </Link>
       </AuthProvider>
     </BrowserRouter>
   );

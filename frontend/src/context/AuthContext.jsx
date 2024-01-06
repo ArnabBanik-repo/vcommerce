@@ -39,6 +39,7 @@ export const AuthProvider = ({ children }) => {
     .then(_ => {
       alert("Logged out");
       setUser(null);
+      setUserFavourites(null);
       navigate('/')
     })
     .catch(err => console.error(err))

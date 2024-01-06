@@ -12,7 +12,7 @@ const Login = () => {
 
   const { user, login: authLogin, logout: authLogout } = useAuth();
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
@@ -21,7 +21,7 @@ const Login = () => {
         {
           id,
           password,
-        },{withCredentials:true}
+        }, { withCredentials: true }
       );
 
       if (response.data.status === "success") {
@@ -35,13 +35,17 @@ const Login = () => {
     }
   };
 
+  const handleLogout = () => {
+    authLogout();
+  }
+
   return (
     <div
       className="flex items-center justify-center"
       style={{ minHeight: "calc(100vh - 13vh)" }}
     >
       <form
-        onSubmit={handleSubmit}
+        onSubmit={() => {user ? handleLogout() : handleLogin()}}
         className="opacity-70 p-8 rounded-md shadow-md"
       >
         <h2 className="text-2xl font-bold mb-4">Login</h2>
@@ -73,17 +77,14 @@ const Login = () => {
             required
           />
         </div>
-        {/* Display either Login or Logout button based on user login status */}
-        <button
-          type="button"
-          onClick={handleSubmit}
-          className={`w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none ${
-            user ? "bg-red-500" : ""
-          }`}
-        >
-          {user ? "Logout" : "Login"}
-        </button>
-        {/* Display user info if logged in */}
+
+        {
+          user ?
+            <button onClick={handleLogout} className={'w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-700 focus:outline-none'}>Logout</button>
+            :
+            <button onClick={handleLogin} className={'w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none'}>Login</button>
+        }
+
         {user && (
           <div className="mt-4 text-center">
             <p className="text-gray-500">Logged in as: {user.first_name}</p>
@@ -93,7 +94,7 @@ const Login = () => {
           Register New User
         </Link>
       </form>
-      
+
     </div>
   );
 };

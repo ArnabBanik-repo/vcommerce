@@ -19,4 +19,4 @@
 - [X] Remove favourite button for self product page
 - [X] Add delete product feature
 - [ ] CTA button link space very large
-- [ ] After logout, favourited products appear favourited. Default action doesn't return back.
+- [X] After logout, favourited products appear favourited. Default action doesn't return back.

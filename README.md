@@ -62,10 +62,11 @@ To run the project, you will need:
    cd ..
    cd fronend && npm i
    ```
-4. Create a .env file in the root directory and set the necessary environment variables mentioned in config.env.example
+4. Create a config.env file in the backend directory and set the necessary environment variables mentioned in backend/config.env.example
 5. Start the backend and frontend server
    ```bash
     cd backend && npm run dev
+   cd ..
     cd frontend && npm run dev
    ```
 6. Access the application in your browser at http://localhost:5173.

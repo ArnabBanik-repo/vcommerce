@@ -56,8 +56,8 @@ const AddListing = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <form onSubmit={handleSubmit} className="bg-gray-100 p-8 rounded-md shadow-black shadow-md w-8/12">
+    <div className="mt-5 md:mt-10 flex items-center justify-center">
+      <form onSubmit={handleSubmit} className="bg-gray-100 mx-4 p-8 rounded-md shadow-black shadow-md md:w-8/12">
         <h2 className="text-2xl font-bold mb-4">Add Listing</h2>
 
         <div className="mb-4">

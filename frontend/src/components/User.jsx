@@ -20,7 +20,7 @@ const User = ({ user }) => {
     return <ChangePassword handleChange={handleChange} />
 
   return (
-    <div className="relative w-full pt-10 px-10 bg-cover bg-center" style={{ backgroundImage: "url('./userinfoback.jpg')" }}>
+    <div className="relative w-full pt-10 px-10 bg-cover bg-center" style={{ backgroundImage: "url('./userinfoback.jpg')", zIndex: -1 }}>
       <div className="absolute inset-0 bg-black bg-opacity-70"></div>
       <div className="relative w-full h-96 grid place-items-center text-center">
         <h1 className="font-bold text-5xl text-white">

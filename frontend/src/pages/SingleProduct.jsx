@@ -111,7 +111,7 @@ const SingleProduct = () => {
   }
 
   return productData ? (
-    <div className="container mx-auto pt-20 grid grid-cols-2 place-items-center" >
+    <div className="container mx-auto pt-8 md:pt-20 md:grid md:grid-cols-2 md:place-items-center" >
       <div>
         <img
           src={`http://localhost:5000/img/products/${productData.photo}`}
@@ -121,7 +121,7 @@ const SingleProduct = () => {
       </div>
 
       {!isOpen ?
-        (<div>
+        (<div className='px-10 mb-5'>
           <h2 className="text-2xl font-bold mb-2">{productData.title}</h2>
           <p className="text-gray-600 mb-4 capitalize text-justify">{productData.desc}</p>
           <p className="text-gray-600 mb-4 capitalize">Category: {productData.category}</p>

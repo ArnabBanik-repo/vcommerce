@@ -1,8 +1,8 @@
 import Header from "./components/Header/Header";
 import Home from "./pages/Home";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { AuthProvider} from "./context/AuthContext";
-import { ProdProvider} from "./context/ProductContext";
+import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import { ProdProvider } from "./context/ProductContext";
 import Userinfo from "./pages/Userinfo";
 import Contact from "./pages/Contact";
 import Favourites from "./pages/Favourites";
@@ -14,9 +14,9 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import AddListing from "./pages/AddListing";
 import { FaHome } from "react-icons/fa";
+import PageNotFound from "./pages/PageNotFound";
 
 function App() {
-
   return (
     <BrowserRouter>
       <AuthProvider>
@@ -36,6 +36,7 @@ function App() {
             <Route path="forgotPassword" element={<ForgotPassword />}></Route>
             <Route path="resetPassword/:id" element={<ResetPassword />}></Route>
             <Route path="addlisting" element={<AddListing />}></Route>
+            <Route path="*" element={<PageNotFound />}></Route>
           </Routes>
           <Link to={'/'} className='fixed bottom-5 right-5 h-12 w-12 bg-green-500 rounded-full shadow-md grid place-items-center text-white hover:bg-green-600 transition-all'>
             <FaHome />

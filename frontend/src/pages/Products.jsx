@@ -1,20 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React  from "react";
 import Listedcard from "../components/Listedcard";
-import axios from "axios";
+import { useProd } from "../context/ProductContext";
 
 const Products = () => {
-  const [products, setProducts] = useState(null);
-
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:5000/api/v1/products",{withCredentials:true})
-      .then((res) => {
-        setProducts(res.data.data.products)
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+  const { products } = useProd();
   return (
     <div className="container mx-[5vw] mt-4 px-[4.5vw]">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">

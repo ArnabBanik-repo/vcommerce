@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
+import { FaArrowRight } from "react-icons/fa";
+import { useProd } from '../../context/ProductContext';
 
 const Header = () => {
   const { user, logout: authLogout } = useAuth();
   const [display, setDisplay] = useState(false);
+  const {setProducts} = useProd();
+
+  const query = useRef();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.get(`http://localhost:5000/api/v1/products?search=${query.current.value}`, { withCredentials: true })
+      .then(res => setProducts(res.data.data.products))
+      .catch(err => console.error(res));
+  }
 
   const handleLogout = () => authLogout();
   const handleDisplay = () => setDisplay(!display);
   const handleVerify = () =>
-    axios.get('http://localhost:5000/api/v1/users/generateVerifMail', {withCredentials: true})
+    axios.get('http://localhost:5000/api/v1/users/generateVerifMail', { withCredentials: true })
       .then(_ => alert('Verification mail sent'))
       .catch(err => console.error(err));
 
@@ -22,6 +34,10 @@ const Header = () => {
             <img src="http://localhost:5173/VcommerceLogo.png" alt="Logo" width={130} />
           </Link>
         </div>
+        <form className='hidden md:flex relative items-center' onSubmit={handleSubmit} >
+          <input className='h-[2.4rem] w-[20rem] px-3 py-1 outline-none rounded-md' placeholder='Seach here ...' ref={query} />
+          <FaArrowRight className='bg-green-400 w-[2.4rem] h-[2.4rem] p-3 absolute right-0 rounded-md bg-opacity-20 text-green-600 cursor-pointer' onClick={handleSubmit} />
+        </form>
         <div className="flex gap-4">
           {display && (
             <div className="flex items-center gap-4 text-[#0f2e1b]">

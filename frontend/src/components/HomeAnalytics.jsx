@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import WhiteTshirt from '../assets/WhiteTshirt.jpg'
 
 const HomeAnalytics = () => {
   return (
@@ -7,7 +8,7 @@ const HomeAnalytics = () => {
       <div className="max-w-[1240px] mx-auto grid md:grid-cols-2">
         <img
           className="w-[500px] mx-auto my-4 rounded-lg"
-          src="./one.jpg"
+          src={WhiteTshirt}
           alt="/"
         />
 

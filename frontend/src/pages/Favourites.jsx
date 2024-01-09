@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Listedcard from "../components/Listedcard";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+import AccessDenied from "./AccessDenied";
+import env from "../config";
 
 const Favourites = () => {
   const { user, userFavourites } = useAuth();
@@ -11,7 +13,7 @@ const Favourites = () => {
   useEffect(() => {
     async function getFavourites(){
       axios
-        .get("http://localhost:5000/api/v1/users/favourites", {
+        .get(`${env.BACKEND_URI_LOCAL}/api/v1/users/favourites`, {
           withCredentials: true,
         })
         .then((res) => {
@@ -38,7 +40,7 @@ const Favourites = () => {
         }
         </div>
       ) : (
-        <p className="text-gray-500">Please Log in</p>
+        <AccessDenied />
       )}
     </>
   );

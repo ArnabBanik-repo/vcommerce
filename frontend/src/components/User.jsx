@@ -20,37 +20,36 @@ const User = ({ user }) => {
     return <ChangePassword handleChange={handleChange} />
 
   return (
-    <div className="relative w-full pt-10 px-10 bg-cover bg-center" style={{ backgroundImage: "url('./userinfoback.jpg')", zIndex: -1 }}>
-      <div className="absolute inset-0 bg-black bg-opacity-70"></div>
-      <div className="relative w-full h-96 grid place-items-center text-center">
-        <h1 className="font-bold text-5xl text-white">
+    <div className="w-full relative" >
+      <div className="relative w-full h-96 grid place-items-center text-center bg-cover bg-center" style={{backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)) ,url("./userinfoback.jpg")', zIndex: -3}}>
+        <h1 className="font-bold text-4xl md:text-5xl text-white">
           {user && user.first_name.toUpperCase()} {user && user.last_name.toUpperCase()}
         </h1>
 
-        <div className="-mt-32 text-white">
+        <div className="-mt-24 md:-mt-32 text-white">
           {user && (
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <div className="flex gap-1 mb-4">
-                  <p className="text-xl font-semibold mb-1">Roll No: &nbsp;</p>
-                  <p className="text-xl uppercase">{user.roll}</p>
+                  <p className="md:text-xl font-semibold mb-1">Roll No: &nbsp;</p>
+                  <p className="md:text-xl uppercase">{user.roll}</p>
                 </div>
 
                 <div className="flex gap-1 mb-4">
-                  <label className="block text-xl font-semibold mb-1">Phone Number: &nbsp;</label>
-                  <p className="text-xl">{user.phone}</p>
+                  <label className="md:text-xl font-semibold mb-1">Phone Number: &nbsp;</label>
+                  <p className="md:text-xl">{user.phone}</p>
                 </div>
               </div>
 
               <div>
-                <div className="flex gap-1 mb-4">
-                  <label className="block text-xl font-semibold mb-1">Address: &nbsp;</label>
-                  <p className="text-xl capitalize">{user.address}</p>
+                <div className="-mt-4 md:-mt-0 flex gap-1 mb-4">
+                  <label className="md:text-xl font-semibold mb-1">Address: &nbsp;</label>
+                  <p className="md:text-xl capitalize">{user.address}</p>
                 </div>
 
                 <div className="flex gap-1 mb-4">
-                  <label className="block text-xl font-semibold mb-1">Email: &nbsp;</label>
-                  <p className="text-xl">{user.email}</p>
+                  <label className="md:text-xl font-semibold mb-1">Email: &nbsp;</label>
+                  <p className="md:text-xl">{user.email}</p>
                 </div>
               </div>
             </div>
@@ -58,12 +57,12 @@ const User = ({ user }) => {
         </div>
       </div>
 
-      <div className={`absolute bottom-20 right-10 bg-gray-200 w-44 rounded-md transition-all ${visible ? 'opacity-1' : 'opacity-0'}`}>
+      <div className={`absolute bottom-16 right-20 bg-gray-200 w-44 rounded-md transition-all ${visible ? 'opacity-1' : 'opacity-0'}`}>
         <p className='h-16 px-4 flex items-center border-b border-gray-400 hover:bg-gray-300 rounded-md cursor-pointer transition-all' onClick={handleUpdate}>Edit Profile</p>
         <p className='h-16 px-4 flex items-center hover:bg-gray-300 rounded-md cursor-pointer transition-all' onClick={handleChange}>Change Password</p>
       </div>
 
-      <div className="absolute bottom-5 right-10" onClick={handleVisible}>
+      <div className="absolute bottom-5 right-16" onClick={handleVisible}>
         <button className="bg-white outline-none border-none text-xl text-black px-3 py-3 rounded-full hover:bg-gray-300">
           <MdEditNote />
         </button>

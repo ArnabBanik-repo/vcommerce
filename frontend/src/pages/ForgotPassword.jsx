@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useRef } from 'react'
+import env from '../config';
 
 const ForgotPassword = () => {
 
@@ -8,7 +9,7 @@ const ForgotPassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost:5000/api/v1/users/forgotPassword', { roll: roll.current.value }, { withCredentials: true })
+    axios.post(`${env.BACKEND_URI_LOCAL}/api/v1/users/forgotPassword`, { roll: roll.current.value }, { withCredentials: true })
       .then(_ => alert("Password Reset Link sent successfully to your mail"))
       .catch(err => alert(err))
 

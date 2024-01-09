@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import env from "../config";
 
 const Login = () => {
   const [id, setid] = useState("");
@@ -17,7 +18,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/users/login",
+        `${env.BACKEND_URI_LOCAL}/api/v1/users/login`,
         {
           id,
           password,

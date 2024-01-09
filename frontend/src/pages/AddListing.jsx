@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import AccessDenied from './AccessDenied';
+import { useAuth } from '../context/AuthContext';
+import env from '../config';
 
 const AddListing = () => {
-  const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('');
-  const [condition, setCondition] = useState('');
-  const [brand, setBrand] = useState('');
-  const [desc, setDesc] = useState('');
-  const [price, setPrice] = useState('');
+  const {user} = useAuth();
+  const title = useRef();
+  const category  = useRef();
+  const condition  = useRef();
+  const brand  = useRef();
+  const desc  = useRef();
+  const price  = useRef();
   const [photo, setPhoto] = useState('');
 
   const handlePhotoChange = (e) => {
@@ -25,12 +29,12 @@ const AddListing = () => {
       formData.append('photo', photo);
 
       const otherData = {
-        title,
-        category,
-        condition,
-        brand,
-        desc,
-        price,
+        title:title.current.value,
+        category:category.current.value,
+        condition:condition.current.value,
+        brand:brand.current.value,
+        desc:desc.current.value,
+        price:price.current.value,
       };
 
       Object.keys(otherData).forEach((key) => {
@@ -38,7 +42,7 @@ const AddListing = () => {
       });
 
       await axios.post(
-        'http://localhost:5000/api/v1/products',
+        `${env.BACKEND_URI_LOCAL}/api/v1/products`,
         formData,
         {
           headers: {
@@ -49,11 +53,14 @@ const AddListing = () => {
       );
 
       alert("Product Listed");
-      navigate('/products');
+      navigate(0);
     } catch (error) {
       alert(error.response.data.message);
     }
   };
+
+  if (!user)
+    return <AccessDenied />
 
   return (
     <div className="mt-5 md:mt-10 flex items-center justify-center">
@@ -66,10 +73,7 @@ const AddListing = () => {
           </label>
           <input
             type="text"
-            id="title"
-            name="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            ref={title}
             className="w-full py-2 px-3 bg-white rounded-md focus:outline-none focus:border-blue-500"
             required
           />
@@ -80,10 +84,7 @@ const AddListing = () => {
             Category
           </label>
           <select
-            id="category"
-            name="category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            ref={category}
             className="w-full py-2 px-3 bg-white rounded-md focus:outline-none focus:border-blue-500"
             required
           >
@@ -102,10 +103,7 @@ const AddListing = () => {
             Condition
           </label>
           <select
-            id="condition"
-            name="condition"
-            value={condition}
-            onChange={(e) => setCondition(e.target.value)}
+            ref={condition}
             className="w-full py-2 px-3 bg-white rounded-md focus:outline-none focus:border-blue-500"
             required
           >
@@ -122,11 +120,7 @@ const AddListing = () => {
             Brand
           </label>
           <input
-            type="text"
-            id="brand"
-            name="brand"
-            value={brand}
-            onChange={(e) => setBrand(e.target.value)}
+            ref={brand}
             className="w-full py-2 px-3 bg-white  rounded-md focus:outline-none focus:border-blue-500"
             required
           />
@@ -139,10 +133,7 @@ const AddListing = () => {
             Description
           </label>
           <textarea
-            id="desc"
-            name="desc"
-            value={desc}
-            onChange={(e) => setDesc(e.target.value)}
+            ref={desc}
             className="w-full py-2 px-3 bg-white rounded-md focus:outline-none focus:border-blue-500"
             required
           />
@@ -153,11 +144,7 @@ const AddListing = () => {
             Price(in ₹)
           </label>
           <input
-            type="text"
-            id="price"
-            name="price"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            ref={price}
             className="w-full py-2 px-3 bg-white  rounded-md focus:outline-none focus:border-blue-500"
             required
           />

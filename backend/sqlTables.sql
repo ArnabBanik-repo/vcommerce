@@ -18,10 +18,10 @@ CREATE TABLE user (
 );
 
 CREATE TABLE favourites (
-  user_id char(9),
-  product_id varchar(50),
+  user_id CHAR(9),
+  product_id VARCHAR(50),
   PRIMARY KEY(user_id, product_id),
-  FOREIGN KEY(user_id) REFERENCES user(roll),
+  FOREIGN KEY(user_id) REFERENCES user(roll)
   ON DELETE CASCADE
 );
 

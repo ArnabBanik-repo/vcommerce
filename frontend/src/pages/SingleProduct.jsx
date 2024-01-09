@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { ImBin } from "react-icons/im";
+import env from '../config';
 
 function containsObject(obj, list) {
   let i;
@@ -32,9 +33,9 @@ const SingleProduct = () => {
 
   const navigate = useNavigate();
   const handleDelete = () => {
-    axios.delete(`http://localhost:5000/api/v1/products/${productData._id}`, {withCredentials: true})
+    axios.delete(`${env.BACKEND_URI_LOCAL}/api/v1/products/${productData._id}`, {withCredentials: true})
     .then(res => {
-      alert("Successfully deleted the product")
+      alert("Successfully deleted the product. Reload to see changes")
       navigate(-1)
     })
     .catch(err => alert(err))

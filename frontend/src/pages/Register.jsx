@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import env from "../config";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -18,7 +19,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/users/register",
+        `${env.BACKEND_URI_LOCAL}/api/v1/users/register`,
         {
           first_name: firstName,
           last_name: lastName,

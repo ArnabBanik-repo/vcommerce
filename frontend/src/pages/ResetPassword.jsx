@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
+import env from '../config';
 
 const ResetPassword = () => {
 
@@ -17,7 +18,7 @@ const ResetPassword = () => {
       return;
     }
 
-     axios.post(`http://localhost:5000/api/v1/users/resetPassword/${id}`, {password: pass.current.value}, {withCredentials: true})
+     axios.post(`${env.BACKEND_URI_LOCAL}/api/v1/users/resetPassword/${id}`, {password: pass.current.value}, {withCredentials: true})
      .then(_ => {
        alert("Password reset successfully");
        navigate('/login');

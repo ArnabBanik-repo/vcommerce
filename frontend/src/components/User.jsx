@@ -20,7 +20,7 @@ const User = ({ user }) => {
     return <ChangePassword handleChange={handleChange} />
 
   return (
-    <div className="w-full relative" >
+    <div className="w-full" >
       <div className="relative w-full h-96 grid place-items-center text-center bg-cover bg-center" style={{backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)) ,url("./userinfoback.jpg")', zIndex: -3}}>
         <h1 className="font-bold text-4xl md:text-5xl text-white">
           {user && user.first_name.toUpperCase()} {user && user.last_name.toUpperCase()}
@@ -57,12 +57,12 @@ const User = ({ user }) => {
         </div>
       </div>
 
-      <div className={`absolute bottom-16 right-20 bg-gray-200 w-44 rounded-md transition-all ${visible ? 'opacity-1' : 'opacity-0'}`}>
+      <div className={`relative md:absolute top-5 -right-3 md:top-[30%] md:right-20 bg-gray-200 w-44 rounded-md transition-all ${visible ? 'block' : 'hidden'}`}>
         <p className='h-16 px-4 flex items-center border-b border-gray-400 hover:bg-gray-300 rounded-md cursor-pointer transition-all' onClick={handleUpdate}>Edit Profile</p>
         <p className='h-16 px-4 flex items-center hover:bg-gray-300 rounded-md cursor-pointer transition-all' onClick={handleChange}>Change Password</p>
       </div>
 
-      <div className="absolute bottom-5 right-16" onClick={handleVisible}>
+      <div className="relative md:absolute -top-48 right-0 md:top-[45%] md:right-16" onClick={handleVisible}>
         <button className="bg-white outline-none border-none text-xl text-black px-3 py-3 rounded-full hover:bg-gray-300">
           <MdEditNote />
         </button>

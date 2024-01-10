@@ -8,8 +8,12 @@ class APIFeatures {
 
   search() {
     if (this.queryString.search) {
-      this.query = Tour.find({ title: { $regex: this.queryString.search, $options: "i" } })
-      console.log(this.queryString.search)
+      this.query = Tour.find({
+        $or: [
+          { title: { $regex: this.queryString.search, $options: "i" } },
+          { desc: { $regex: this.queryString.search, $options: "i" } }
+        ]
+      }); console.log(this.queryString.search)
     }
     return this;
   }

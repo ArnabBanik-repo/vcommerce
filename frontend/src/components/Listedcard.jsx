@@ -43,7 +43,7 @@ const Listedcard = ({ product }) => {
   };
 
   return (
-    <div className={`w-80 p-4 rounded-md shadow-md mb-4 transition-all cursor-pointer border border-transparent ${isFavorited ? 'border-red-500' : 'hover:border-[#9CFF88]'}`}>
+    <div className={`p-4 rounded-md shadow-md mb-4 transition-all cursor-pointer border border-transparent ${isFavorited ? 'border-red-500' : 'hover:border-[#9CFF88]'}`}>
       <Link to={{ pathname: `/singleproduct/${product._id}` }}>
       <img src={"http://localhost:5000/img/products/"+product.photo} alt={product.title} className="mb-2 rounded-md" />
       </Link>

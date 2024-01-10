@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
@@ -13,12 +13,13 @@ const Header = () => {
   const [display, setDisplay] = useState(false);
   const { setProducts } = useProd();
 
-  const query = useRef();
+  const [query, setQuery] = useState('');
   const location = useLocation();
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.get(`${env.BACKEND_URI_LOCAL}/api/v1/products?search=${query.current.value}`, { withCredentials: true })
+    axios.get(`${env.BACKEND_URI_LOCAL}/api/v1/products?search=${query}`, { withCredentials: true })
       .then(res => setProducts(res.data.data.products))
       .catch(err => console.error(res));
   }
@@ -38,10 +39,9 @@ const Header = () => {
             <img src={VCommerceLogo} alt="Logo" className='w-20 md:w-32' />
           </Link>
         </div>
-        {
-          location.pathname === '/products' &&
+        { location.pathname === '/products' &&
           <form className='md:flex relative items-center' onSubmit={handleSubmit} >
-            <input className='h-[2.4rem] w-36 md:w-[20rem] px-3 py-1 outline-none rounded-md' placeholder='Seach here ...' ref={query} />
+            <input className='h-[2.4rem] w-36 md:w-[20rem] px-3 py-1 outline-none rounded-md' placeholder='Seach here ...' value={query} onChange={(e) => setQuery(e.target.value)}/>
             <FaArrowRight className='bg-green-400 w-[2.4rem] h-[2rem] p-3 absolute top-1 right-1 rounded-md bg-opacity-20 text-green-600 cursor-pointer' onClick={handleSubmit} />
           </form>
         }

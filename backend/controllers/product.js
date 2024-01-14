@@ -7,7 +7,6 @@ const catchAsync = require('../utils/catchAsync');
 const { listUser } = require("../mysql");
 
 exports.getProducts = catchAsync(async (req, res, next) => {
-  req.query.sort = "-createdAt";
   const features = new APIFeatures(Product.find(), req.query)
     .search()
     .filter()

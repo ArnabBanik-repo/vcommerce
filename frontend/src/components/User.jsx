@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { MdEditNote } from "react-icons/md";
 import EditUser from './EditUser';
 import ChangePassword from './ChangePassword';

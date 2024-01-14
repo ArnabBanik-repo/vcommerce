@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import axios from 'axios';
@@ -15,7 +15,6 @@ const Header = () => {
 
   const [query, setQuery] = useState('');
   const location = useLocation();
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,16 +38,16 @@ const Header = () => {
             <img src={VCommerceLogo} alt="Logo" className='w-20 md:w-32' />
           </Link>
         </div>
-        { location.pathname === '/products' &&
+        {location.pathname === '/products' &&
           <form className='md:flex relative items-center' onSubmit={handleSubmit} >
-            <input className='h-[2.4rem] w-36 md:w-[20rem] px-3 py-1 outline-none rounded-md' placeholder='Seach here ...' value={query} onChange={(e) => setQuery(e.target.value)}/>
+            <input className='h-[2.4rem] w-36 md:w-[20rem] px-3 py-1 outline-none rounded-md' placeholder='Seach here ...' value={query} onChange={(e) => setQuery(e.target.value)} />
             <FaArrowRight className='bg-green-400 w-[2.4rem] h-[2rem] p-3 absolute top-1 right-1 rounded-md bg-opacity-20 text-green-600 cursor-pointer' onClick={handleSubmit} />
           </form>
         }
         <button className='outline-0 bg-green-500 rounded-full w-10 h-10 flex items-center justify-center p-2 bg-opacity-40 ' onClick={handleDisplay}>
           <img src={Hamburger} alt="Hamburger" width={30} />
         </button>
-        <div className={`top-20 right-10 absolute bg-gray-200 w-44 rounded-md transition-all ${display ? 'block' : 'hidden'}`} style={{zIndex: 100}} onClick={() => handleDisplay()}>
+        <div className={`top-20 right-10 absolute bg-gray-200 w-44 rounded-md transition-all ${display ? 'block' : 'hidden'}`} style={{ zIndex: 100 }} onClick={() => handleDisplay()}>
           {user && <Link className='h-16 px-4 flex items-center border-b border-gray-400 hover:bg-gray-300 rounded-md cursor-pointer transition-all' to="/userinfo">User Info</Link>}
           <Link className='h-16 px-4 flex items-center border-b border-gray-400 hover:bg-gray-300 rounded-md cursor-pointer transition-all' to="/products">Products</Link>
           {user && <Link className='h-16 px-4 flex items-center border-b border-gray-400 hover:bg-gray-300 rounded-md cursor-pointer transition-all' to="/addlisting">Add Products</Link>}

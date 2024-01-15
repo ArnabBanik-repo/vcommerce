@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import axios from 'axios'
 import { useAuth } from '../context/AuthContext'
+import env from '../config'
 
 const EditUser = ({ handleUpdate }) => {
   const { user } = useAuth()
@@ -18,7 +19,7 @@ const EditUser = ({ handleUpdate }) => {
         address: address && address.current.value,
       };
       const response = await axios.patch(
-        "http://localhost:5000/api/v1/users/updateMe",
+        `${env.BACKEND_URI}/api/v1/users/updateMe`,
         prod,
         { withCredentials: true }
       );

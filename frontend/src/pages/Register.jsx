@@ -19,7 +19,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        `${env.BACKEND_URI_LOCAL}/api/v1/users/register`,
+        `${env.BACKEND_URI}/api/v1/users/register`,
         {
           first_name: firstName,
           last_name: lastName,

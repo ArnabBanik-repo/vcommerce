@@ -30,7 +30,7 @@ const Filter = () => {
       alert('Max price has to be greater than min price');
       return;
     }
-    let filter_string = `${env.BACKEND_URI_LOCAL}/api/v1/products?price[gte]=${min_price}&price[lte]=${max_price}`;
+    let filter_string = `${env.BACKEND_URI}/api/v1/products?price[gte]=${min_price}&price[lte]=${max_price}`;
     if(category.length > 0)
       filter_string = filter_string.concat(`&category=${category.toLowerCase()}`)
     if(condition.length > 0)

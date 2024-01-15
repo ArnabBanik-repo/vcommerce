@@ -18,7 +18,7 @@ const ResetPassword = () => {
       return;
     }
 
-     axios.post(`${env.BACKEND_URI_LOCAL}/api/v1/users/resetPassword/${id}`, {password: pass.current.value}, {withCredentials: true})
+     axios.post(`${env.BACKEND_URI}/api/v1/users/resetPassword/${id}`, {password: pass.current.value}, {withCredentials: true})
      .then(_ => {
        alert("Password reset successfully");
        navigate('/login');

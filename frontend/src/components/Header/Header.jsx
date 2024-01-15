@@ -18,7 +18,7 @@ const Header = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.get(`${env.BACKEND_URI_LOCAL}/api/v1/products?search=${query}`, { withCredentials: true })
+    axios.get(`${env.BACKEND_URI}/api/v1/products?search=${query}`, { withCredentials: true })
       .then(res => setProducts(res.data.data.products))
       .catch(err => console.error(res));
   }
@@ -26,7 +26,7 @@ const Header = () => {
   const handleLogout = () => authLogout();
   const handleDisplay = () => setDisplay(!display);
   const handleVerify = () =>
-    axios.get(`${env.BACKEND_URI_LOCAL}/api/v1/users/generateVerifMail`, { withCredentials: true })
+    axios.get(`${env.BACKEND_URI}/api/v1/users/generateVerifMail`, { withCredentials: true })
       .then(_ => alert('Verification mail sent'))
       .catch(err => console.error(err));
 

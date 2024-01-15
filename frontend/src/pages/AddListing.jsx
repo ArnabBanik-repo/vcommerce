@@ -42,7 +42,7 @@ const AddListing = () => {
       });
 
       await axios.post(
-        `${env.BACKEND_URI_LOCAL}/api/v1/products`,
+        `${env.BACKEND_URI}/api/v1/products`,
         formData,
         {
           headers: {

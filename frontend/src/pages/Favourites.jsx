@@ -13,7 +13,7 @@ const Favourites = () => {
   useEffect(() => {
     async function getFavourites(){
       axios
-        .get(`${env.BACKEND_URI_LOCAL}/api/v1/users/favourites`, {
+        .get(`${env.BACKEND_URI}/api/v1/users/favourites`, {
           withCredentials: true,
         })
         .then((res) => {

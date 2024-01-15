@@ -9,7 +9,7 @@ const UserInfo = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${env.BACKEND_URI_LOCAL}/api/v1/users/me`, { withCredentials: true });
+        const response = await axios.get(`${env.BACKEND_URI}/api/v1/users/me`, { withCredentials: true });
 
         if (response.data.status === 'success') {
           setUser(response.data.data);

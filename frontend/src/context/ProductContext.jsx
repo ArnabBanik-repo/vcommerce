@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { createContext, useContext, useState, useEffect } from 'react';
+import env from '../config';
 
 const ProductContext = createContext();
 
@@ -9,7 +10,7 @@ export const ProdProvider = ({ children }) => {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:5000/api/v1/products", { withCredentials: true })
+      .get(`${env.BACKEND_URI}/api/v1/products`, { withCredentials: true })
       .then((res) => {
         setProducts(res.data.data.products)
       })

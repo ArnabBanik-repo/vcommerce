@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import env from '../config';
 
 function containsObject(obj, list) {
   let i;
@@ -22,7 +23,7 @@ const Listedcard = ({ product }) => {
 
   const toggleFavorite = () => {
     if(!isFavorited){
-      axios.get(`http://localhost:5000/api/v1/users/favourite/${product._id}`, {withCredentials: true})
+      axios.get(`${env.BACKEND_URI}/api/v1/users/favourite/${product._id}`, {withCredentials: true})
         .then(res => {
           setUserFavourites([...userFavourites, product])
           setIsFavorited(!isFavorited);
@@ -31,7 +32,7 @@ const Listedcard = ({ product }) => {
           alert(err.response.data.message);
         });
     } else{
-      axios.get(`http://localhost:5000/api/v1/users/unfavourite/${product._id}`, {withCredentials: true})
+      axios.get(`${env.BACKEND_URI}/api/v1/users/unfavourite/${product._id}`, {withCredentials: true})
       .then(res => {
         setUserFavourites(() => userFavourites.filter(e => e._id !== product._id))          
         setIsFavorited(!isFavorited);
@@ -45,7 +46,7 @@ const Listedcard = ({ product }) => {
   return (
     <div className={`p-4 rounded-md shadow-md mb-4 transition-all cursor-pointer border border-transparent ${isFavorited ? 'border-red-500' : 'hover:border-[#9CFF88]'}`}>
       <Link to={{ pathname: `/singleproduct/${product._id}` }}>
-      <img src={"http://localhost:5000/img/products/"+product.photo} alt={product.title} className="mb-2 rounded-md" />
+      <img src={`${env.BACKEND_URI}/img/products/`+product.photo} alt={product.title} className="mb-2 rounded-md" />
       </Link>
       <div className='flex items-center justify-between'>
       <Link to={{ pathname: `/singleproduct/${product._id}` }}>

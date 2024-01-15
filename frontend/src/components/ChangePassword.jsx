@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useRef } from 'react'
 import { useNavigate} from 'react-router-dom';
+import env from '../config';
 
 const ChangePassword = ({ handleChange }) => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const ChangePassword = ({ handleChange }) => {
       return;
     }
 
-    axios.patch('http://localhost:5000/api/v1/users/updatePassword', { password: orig.current.value, newPassword: pass.current.value }, { withCredentials: true })
+    axios.patch(`${env.BACKEND_URI}/api/v1/users/updatePassword`, { password: orig.current.value, newPassword: pass.current.value }, { withCredentials: true })
       .then(_ => {
         alert("Password changed successfully");
         handleChange();

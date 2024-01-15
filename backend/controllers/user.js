@@ -2,12 +2,10 @@ const jwt = require('jsonwebtoken');
 const crypto = require('node:crypto');
 const { promisify } = require('util');
 const catchAsync = require('../utils/catchAsync');
-const { listUsers, listUser, createUser, removeUser, modifyUser, listCompleteUser, modifyPassword, correctPassword, changedPasswordAfter, setResetToken, findUserWithPasswordToken, generateMailOtp } = require("../mysql");
+const { listUsers, listUser, createUser, removeUser, modifyUser, listCompleteUser, modifyPassword, correctPassword, changedPasswordAfter, setResetToken, findUserWithPasswordToken, generateMailOtp, validateUser, resetDbPassword } = require("../mysql");
 const AppError = require('../utils/AppError');
 const Product = require('../models/product');
 const Email = require("../utils/email");
-const { validateUser } = require("../mysql");
-const { resetDbPassword } = require("../mysql");
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_KEY, {
@@ -80,8 +78,6 @@ exports.generateVerifMail = catchAsync(async (req, res, _) => {
   const otp = crypto.randomBytes(6).toString('hex');
   const url = `${req.protocol}://${req.get('host',)}/api/v1/users/verifyUser/${roll}::${otp}`;
   await generateMailOtp(roll, otp);
-  console.log("req.user");
-  console.log(req.user);
   await new Email(req.user, url).sendWelcome();
   res.status(200).json({
     status: 'success',
@@ -94,6 +90,7 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError('ID and Password required', 400));
 
   const user = await listCompleteUser(id);
+  console.log("hi from login")
   if (!user || !(await correctPassword(password, user.password)))
     return next(new AppError('Incorrect ID or password entered', 401));
 

@@ -18,7 +18,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        `${env.BACKEND_URI_LOCAL}/api/v1/users/login`,
+        `${env.BACKEND_URI}/api/v1/users/login`,
         {
           id,
           password,

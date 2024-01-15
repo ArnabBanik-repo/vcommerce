@@ -33,7 +33,7 @@ const SingleProduct = () => {
 
   const navigate = useNavigate();
   const handleDelete = () => {
-    axios.delete(`${env.BACKEND_URI_LOCAL}/api/v1/products/${productData._id}`, {withCredentials: true})
+    axios.delete(`${env.BACKEND_URI}/api/v1/products/${productData._id}`, {withCredentials: true})
     .then(res => {
       alert("Successfully deleted the product. Reload to see changes")
       navigate(-1)
@@ -54,7 +54,7 @@ const SingleProduct = () => {
         price: price.current.value,
       };
       const response = await axios.patch(
-        `http://localhost:5000/api/v1/products/${productData._id}`,
+        `${env.BACKEND_URI}/api/v1/products/${productData._id}`,
         prod,
         { withCredentials: true }
       );
@@ -73,7 +73,7 @@ const SingleProduct = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/v1/products/${productid}`);
+        const response = await axios.get(`${env.BACKEND_URI}/api/v1/products/${productid}`);
         setProductData(response.data.data);
       } catch (error) {
         console.error('Error fetching product data:', error);
@@ -91,7 +91,7 @@ const SingleProduct = () => {
 
   const toggleFavorite = () => {
     if (!isFavorited) {
-      axios.get(`http://localhost:5000/api/v1/users/favourite/${productData._id}`, { withCredentials: true })
+      axios.get(`${env.BACKEND_URI}/api/v1/users/favourite/${productData._id}`, { withCredentials: true })
         .then(res => {
           setUserFavourites([...userFavourites, productData])
           setIsFavorited(!isFavorited);
@@ -100,7 +100,7 @@ const SingleProduct = () => {
           alert(err.response.data.message);
         });
     } else {
-      axios.get(`http://localhost:5000/api/v1/users/unfavourite/${productData._id}`, { withCredentials: true })
+      axios.get(`${env.BACKEND_URI}/api/v1/users/unfavourite/${productData._id}`, { withCredentials: true })
         .then(res => {
           setUserFavourites(() => userFavourites.filter(e => e._id !== productData._id))
           setIsFavorited(!isFavorited);
@@ -115,7 +115,7 @@ const SingleProduct = () => {
     <div className="container mx-auto pt-8 md:pt-20 md:grid md:grid-cols-2 md:place-items-center" >
       <div>
         <img
-          src={`http://localhost:5000/img/products/${productData.photo}`}
+          src={`${env.BACKEND_URI}/img/products/${productData.photo}`}
           alt={productData.title}
           className="mb-4 rounded-md w-4/5 mx-auto"
         />

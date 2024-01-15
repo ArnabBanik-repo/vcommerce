@@ -1,5 +1,4 @@
 import React from "react";
-import ReactTyped from "react-typed";
 import { Link } from "react-router-dom";
 
 <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>;
@@ -12,14 +11,9 @@ const HomeHero = () => {
           Your Unique VIT Market
         </p>
 
-        <ReactTyped
-          strings={["VCOMMERCE"]}
-          typeSpeed={170}
-          backDelay={1000}
-          smartBackspace={true}
-          loop
-          className="text-[#69CC55] font-bold p-2 md:text-5xl sm:text-4xl text-2xl pl-20"
-        />
+        <h1 className="text-[#69CC55] font-bold p-2 md:text-5xl sm:text-4xl text-2xl pl-20">
+          VCommerce
+        </h1>
 
         <div className="md:text-5xl sm:text-4xl text-xl font-bold py-4 pl-5 pt-20">
           From Books to Gadgets

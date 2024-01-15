@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { MdEditNote } from "react-icons/md";
 import EditUser from './EditUser';
 import ChangePassword from './ChangePassword';
+import UserInfoBack from '../assets/userinfoback.jpg'
 
 const User = ({ user }) => {
 
@@ -21,7 +22,7 @@ const User = ({ user }) => {
 
   return (
     <div className="w-full" >
-      <div className="relative w-full h-96 grid place-items-center text-center bg-cover bg-center" style={{backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)) ,url("./userinfoback.jpg")', zIndex: -3}}>
+      <div className="relative w-full h-96 grid place-items-center text-center bg-cover bg-center" style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.527),rgba(0, 0, 0, 0.5)), url(${UserInfoBack})`, zIndex: -3 }}>
         <h1 className="font-bold text-4xl md:text-5xl text-white">
           {user && user.first_name.toUpperCase()} {user && user.last_name.toUpperCase()}
         </h1>

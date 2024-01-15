@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-<script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>;
+import BgImage from '../assets/backhero.jpg';
 
 const HomeHero = () => {
   return (
-    <div className="bg-[url('./backhero.jpg')] bg-no-repeat bg-cover">
+    <div className="bg-no-repeat bg-cover" style={{backgroundImage: `url(${BgImage})`}}>
       <div className="max-w-[650px] mx-16 h-screen flex flex-col justify-center">
         <p className="text-black font-bold p-2 md:text-4xl sm:text-3xl text-xl pl-20">
           Your Unique VIT Market
